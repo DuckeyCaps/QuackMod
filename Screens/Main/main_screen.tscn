@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://w0xxi8t0f5au"]
+
+[ext_resource type="Script" path="res://Screens/Main/MainScreen.cs" id="1_1nsqh"]
+[ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_xt2pu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvjkm"]
+bg_color = Color(0.992157, 0.941176, 0.643137, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mqab"]
+bg_color = Color(0, 0, 0, 0.356863)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8by7"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.960784, 0.52549, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe4wf"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.941176, 0.317647, 0.32549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vevxi"]
+content_margin_bottom = 80.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a14xl"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.537255, 0.780392, 0.396078, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lw18"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.960784, 0.52549, 0.32549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlgsf"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.941176, 0.317647, 0.32549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MainScreen" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xt2pu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mvjkm")
+script = ExtResource("1_1nsqh")
+
+[node name="TopBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 43.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mqab")
+
+[node name="Title" type="Label" parent="TopBar"]
+layout_mode = 2
+text = "QuackMod"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+alignment = 2
+
+[node name="Min" type="Button" parent="TopBar/Buttons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_u8by7")
+text = "_"
+
+[node name="Close" type="Button" parent="TopBar/Buttons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_oe4wf")
+text = "X"
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 36.0
+offset_right = 1151.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "Welcome to QuackMod!"
+horizontal_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Add" type="Button" parent="VBox/HBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_a14xl")
+text = "Add Keys"
+
+[node name="Remove" type="Button" parent="VBox/HBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_0lw18")
+text = "Remove Keys"
+
+[node name="Clear" type="Button" parent="VBox/HBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_wlgsf")
+text = "Clear Keys"
+
+[node name="Current" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
+text = "Current Keys: None"
+horizontal_alignment = 1
