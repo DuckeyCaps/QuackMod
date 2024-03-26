@@ -74,6 +74,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mvjkm")
 script = ExtResource("1_1nsqh")
 
 [node name="TopBar" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -83,6 +84,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7mqab")
 
 [node name="Title" type="Label" parent="TopBar"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
 text = "QuackMod"
 horizontal_alignment = 1
 
@@ -100,40 +103,53 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_oe4wf")
 text = "X"
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 36.0
+offset_top = 43.0
 offset_right = 1151.0
 offset_bottom = 648.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VBox"]
+[node name="Label" type="Label" parent="Content"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Welcome to QuackMod!"
+text = "Welcome to \"QuackMod in Godot\" - v0.0.1
+Any key will quack"
 horizontal_alignment = 1
 
-[node name="HBox" type="HBoxContainer" parent="VBox"]
+[node name="Buttons" type="HBoxContainer" parent="Content"]
 layout_mode = 2
 alignment = 1
 
-[node name="Add" type="Button" parent="VBox/HBox"]
+[node name="Add" type="Button" parent="Content/Buttons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_a14xl")
 text = "Add Keys"
 
-[node name="Remove" type="Button" parent="VBox/HBox"]
+[node name="Remove" type="Button" parent="Content/Buttons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0lw18")
 text = "Remove Keys"
 
-[node name="Clear" type="Button" parent="VBox/HBox"]
+[node name="Clear" type="Button" parent="Content/Buttons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wlgsf")
 text = "Clear Keys"
 
-[node name="Current" type="Label" parent="VBox"]
+[node name="KeyLabels" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="Current Keys" type="Label" parent="Content/KeyLabels"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
-text = "Current Keys: None"
+text = "Current Keys: "
 horizontal_alignment = 1
+
+[node name="Keys" type="Label" parent="Content/KeyLabels"]
+layout_mode = 2
+text = "<None>"
+
+[connection signal="pressed" from="Content/Buttons/Add" to="." method="OnAddPressed"]
+[connection signal="pressed" from="Content/Buttons/Remove" to="." method="OnRemovePressed"]
+[connection signal="pressed" from="Content/Buttons/Clear" to="." method="OnClearPressed"]
