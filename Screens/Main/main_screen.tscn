@@ -74,7 +74,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mvjkm")
 script = ExtResource("1_1nsqh")
 
 [node name="TopBar" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -149,6 +148,8 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "<None>"
 
+[connection signal="pressed" from="TopBar/Buttons/Min" to="." method="OnMinPressed"]
+[connection signal="pressed" from="TopBar/Buttons/Close" to="." method="OnClosePressed"]
 [connection signal="pressed" from="Content/Buttons/Add" to="." method="OnAddPressed"]
 [connection signal="pressed" from="Content/Buttons/Remove" to="." method="OnRemovePressed"]
 [connection signal="pressed" from="Content/Buttons/Clear" to="." method="OnClearPressed"]

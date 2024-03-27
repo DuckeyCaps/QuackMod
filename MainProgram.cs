@@ -119,7 +119,11 @@ public partial class MainProgram : Node2D {
     
     public override void _Notification(int what) {
         if (what != NotificationWMCloseRequest) return;
-        
+
+        CloseGracefully();
+    }
+
+    public void CloseGracefully() {
         _globalHook.Dispose();   
         SaveData();
         GetTree().Quit();

@@ -27,6 +27,14 @@ public partial class MainScreen : Panel {
         return _keys;
     }
 
+    public void OnMinPressed() {
+        DisplayServer.WindowSetMode(DisplayServer.WindowMode.Minimized);
+    }
+    
+    public void OnClosePressed() {
+        _program.CloseGracefully();
+    }    
+
     public void OnAddPressed() {
         _program.StartEditing(true);
     }
