@@ -90,9 +90,9 @@ public partial class MainProgram : Node2D {
 
         _tempKeys.Add(keyPressed.KeyCode, keyPressed);
         
-        var tempKeys = new List<char>();
+        var tempKeys = new List<string>();
         foreach (var key in _tempKeys.Keys) {
-            tempKeys.Add(_tempKeys[key].KeyChar);
+            tempKeys.Add(Utils.StringUtils.GetKeyCodeString(key));
         }
 
         var outString = string.Join(", ", tempKeys);
@@ -141,9 +141,9 @@ public partial class MainProgram : Node2D {
         _mainScreen.Visible = true;
         _editScreen.Visible = false;
         
-        var tempKeys = new List<char>();
+        var tempKeys = new List<string>();
         foreach (var key in _activeKeys.Keys) {
-            tempKeys.Add(_activeKeys[key].KeyChar);
+            tempKeys.Add(Utils.StringUtils.GetKeyCodeString(key));
         }
 
         var outString = string.Join(", ", tempKeys);
