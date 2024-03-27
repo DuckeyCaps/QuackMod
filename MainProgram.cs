@@ -2,16 +2,17 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using SharpHook;
 using SharpHook.Native;
 
 namespace SoundBinder;
 
 // TODO: Saving/loading (probably using .NET serialization since Godot can't understand SharpHook's classes)
-// TODO: KeyCode -> String util class
 
 public partial class MainProgram : Node2D {
+    private const string SaveDataLocation = "user://quackmod.sav";
+    
     private AudioStreamPlayer _player;
 
     private CanvasLayer _uiLayer;
@@ -25,8 +26,11 @@ public partial class MainProgram : Node2D {
     private Label _mainKeyLabel;
     private Label _editKeyLabel;
 
-    private readonly Dictionary<KeyCode, KeyboardEventData> _activeKeys = new();
-    private readonly Dictionary<KeyCode, KeyboardEventData> _tempKeys = new();
+    // private readonly Dictionary<KeyCode, KeyboardEventData> _activeKeys = new();
+    // private readonly Dictionary<KeyCode, KeyboardEventData> _tempKeys = new();
+    
+    private readonly HashSet<KeyCode> _activeKeys = new();
+    private readonly HashSet<KeyCode> _tempKeys = new();
 
     private SimpleGlobalHook _globalHook;
     
@@ -37,11 +41,15 @@ public partial class MainProgram : Node2D {
     }
 
     private EditState _editState;
+
+    private bool _freshStart = true;
     
     // Called when the node enters the scene tree for the first time.
     public override async void _Ready() {
         _player = GetNode<AudioStreamPlayer>("SFXPlayer");
         _uiLayer = GetNode<CanvasLayer>("UI");
+        
+        LoadData();
 
         _mainScreenScene = GD.Load<PackedScene>("res://Screens/Main/main_screen.tscn");
         _editScreenScene = GD.Load<PackedScene>("res://Screens/Edit/edit_screen.tscn");
@@ -77,7 +85,7 @@ public partial class MainProgram : Node2D {
         
         else {
             GD.Print(_activeKeys.Count);
-            if (_activeKeys.ContainsKey(eventData.KeyCode)) {
+            if (_activeKeys.Contains(eventData.KeyCode)) {
                 GD.Print("Quack");
                 _player.CallDeferred("play");
             }    
@@ -85,25 +93,27 @@ public partial class MainProgram : Node2D {
     }
 
     private void HandleEditKeyPress(KeyboardEventData keyPressed) {
-        if (_tempKeys.ContainsKey(keyPressed.KeyCode)) return;
+        if (_tempKeys.Contains(keyPressed.KeyCode)) return;
         GD.Print(keyPressed.ToString());
 
-        _tempKeys.Add(keyPressed.KeyCode, keyPressed);
+        _tempKeys.Add(keyPressed.KeyCode);
         
         var tempKeys = new List<string>();
-        foreach (var key in _tempKeys.Keys) {
+        foreach (var key in _tempKeys) {
             tempKeys.Add(Utils.StringUtils.GetKeyCodeString(key));
         }
 
         var outString = string.Join(", ", tempKeys);
         _editKeyLabel.CallDeferred("set_text", outString);
-        // _editScreen.CallDeferred("queue_redraw");
-        // _editScreen.CallDeferred(nameof(_editScreen.SetCurrentKeys), _tempKeys);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        if (_freshStart) {
+            SetMainKeyLabel();
+            _freshStart = false;
+        }
         QueueRedraw();
     }
     
@@ -111,6 +121,7 @@ public partial class MainProgram : Node2D {
         if (what != NotificationWMCloseRequest) return;
         
         _globalHook.Dispose();   
+        SaveData();
         GetTree().Quit();
     }
 
@@ -124,15 +135,15 @@ public partial class MainProgram : Node2D {
 
     public void StopEditing(bool shouldSave) {
         if (shouldSave) {
-            foreach (var key in _tempKeys.Keys) {
-                if (_activeKeys.ContainsKey(key)) {
+            foreach (var key in _tempKeys) {
+                if (_activeKeys.Contains(key)) {
                     if (_editState == EditState.Removing)
                         _activeKeys.Remove(key);
                 }
 
                 else {
                     if (_editState == EditState.Adding)
-                        _activeKeys.Add(key, _tempKeys[key]);
+                        _activeKeys.Add(key);
                 }
             }
         }
@@ -141,34 +152,58 @@ public partial class MainProgram : Node2D {
         _mainScreen.Visible = true;
         _editScreen.Visible = false;
         
-        var tempKeys = new List<string>();
-        foreach (var key in _activeKeys.Keys) {
-            tempKeys.Add(Utils.StringUtils.GetKeyCodeString(key));
-        }
-
-        var outString = string.Join(", ", tempKeys);
-        _mainKeyLabel.CallDeferred("set_text", outString);
+        SetMainKeyLabel();
 
         _editState = EditState.NotEditing;
-        // _mainScreen.CallDeferred("queue_redraw");
     }
 
     public void ClearKeys() {
         GD.Print("Clearing!");
         _activeKeys.Clear();
+        _mainKeyLabel.CallDeferred("set_text", "<None>");
+    }
+    
+
+    private void SaveData() {
+        using var fileStream = File.Open(ProjectSettings.GlobalizePath(SaveDataLocation), FileMode.Create);
+        using var writer = new BinaryWriter(fileStream, Encoding.UTF8, false);
+        
+        foreach (var key in _activeKeys) {
+            writer.Write((ushort)key);
+        }
+    }
+    
+    
+    private void LoadData() {
+        if (!File.Exists(ProjectSettings.GlobalizePath(SaveDataLocation))) return;
+
+        using var fileStream = File.Open(ProjectSettings.GlobalizePath(SaveDataLocation), FileMode.Open);
+        using var reader = new BinaryReader(fileStream, Encoding.UTF8, false);
+        var hasData = true;
+        
+        while (hasData) {
+            try {
+                var keyVal = reader.ReadUInt16();
+                _activeKeys.Add((KeyCode)keyVal);
+            }
+            catch (EndOfStreamException e) {
+                Console.WriteLine("End of save data.");
+                hasData = false;
+            }
+        } 
     }
 
-    // public void SaveData() {
-    //     using (var fs = new FileStream("data.dat", FileMode.Create))
-    //     {
-    //         var formatter = new BinaryFormatter();
-    //         formatter.Serialize(fs, myObject);
-    //     }
-    // }
-    //
-    // public void LoadData() {
-    //     FileStream fs = new FileStream("data.dat", FileMode.Open); 
-    //     BinaryFormatter formatter = new BinaryFormatter(); 
-    //     MyClass myObject = (MyClass)formatter.Deserialize(fs);
-    // }
+    private void SetMainKeyLabel() {
+        if (_activeKeys.Count == 0) {
+            _mainKeyLabel.CallDeferred("set_text", "<None>");
+            return;
+        }
+        var tempKeys = new List<string>();
+        foreach (var key in _activeKeys) {
+            tempKeys.Add(Utils.StringUtils.GetKeyCodeString(key));
+        }
+
+        var outString = string.Join(", ", tempKeys);
+        _mainKeyLabel.CallDeferred("set_text", outString);
+    }
 }

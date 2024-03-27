@@ -113,8 +113,7 @@ alignment = 1
 [node name="Label" type="Label" parent="Content"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Welcome to \"QuackMod in Godot\" - v0.0.1
-Any key will quack"
+text = "Welcome to \"QuackMod in Godot\"!"
 horizontal_alignment = 1
 
 [node name="Buttons" type="HBoxContainer" parent="Content"]
