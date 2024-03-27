@@ -1,22 +1,15 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using SharpHook;
 using SharpHook.Native;
 
 namespace SoundBinder;
 
-public class KeyInfo {
-    public KeyCode KeyCode { get; set; }
-    public ushort RawCode { get; set; }
-    public char KeyChar { get; set; }
-
-    public KeyInfo(KeyboardEventData data) {
-        KeyCode = data.KeyCode;
-        RawCode = data.RawCode;
-        KeyChar = data.KeyChar;
-    }
-}
+// TODO: Saving/loading (probably using .NET serialization since Godot can't understand SharpHook's classes)
+// TODO: KeyCode -> String util class
 
 public partial class MainProgram : Node2D {
     private AudioStreamPlayer _player;
@@ -32,12 +25,8 @@ public partial class MainProgram : Node2D {
     private Label _mainKeyLabel;
     private Label _editKeyLabel;
 
-    // private readonly Godot.Collections.Array<char> _activeKeys = new();
-    // private readonly Godot.Collections.Array<char> _tempKeys = new();
-    
-    // TODO: Maybe try swapping this for a dictionary? Current implementation isn't properly hashing and Contain()'ing
-    private readonly HashSet<KeyInfo> _activeKeys = new();
-    private readonly HashSet<KeyInfo> _tempKeys = new();
+    private readonly Dictionary<KeyCode, KeyboardEventData> _activeKeys = new();
+    private readonly Dictionary<KeyCode, KeyboardEventData> _tempKeys = new();
 
     private SimpleGlobalHook _globalHook;
     
@@ -81,30 +70,29 @@ public partial class MainProgram : Node2D {
 
     private void GlobalHookOnKeyTyped(object sender, KeyboardHookEventArgs e) {
         var eventData = e.Data;
-        var keyInfo = new KeyInfo(eventData);
 
         if (_editState != EditState.NotEditing) {
-            HandleEditKeyPress(keyInfo);
+            HandleEditKeyPress(eventData);
         }
         
         else {
             GD.Print(_activeKeys.Count);
-            if (_activeKeys.Contains(keyInfo)) {
+            if (_activeKeys.ContainsKey(eventData.KeyCode)) {
                 GD.Print("Quack");
                 _player.CallDeferred("play");
             }    
         }
     }
 
-    private void HandleEditKeyPress(KeyInfo keyPressed) {
-        if (_tempKeys.Contains(keyPressed)) return;
+    private void HandleEditKeyPress(KeyboardEventData keyPressed) {
+        if (_tempKeys.ContainsKey(keyPressed.KeyCode)) return;
         GD.Print(keyPressed.ToString());
 
-        _tempKeys.Add(keyPressed);
+        _tempKeys.Add(keyPressed.KeyCode, keyPressed);
         
         var tempKeys = new List<char>();
-        foreach (var key in _tempKeys) {
-            tempKeys.Add(key.KeyChar);
+        foreach (var key in _tempKeys.Keys) {
+            tempKeys.Add(_tempKeys[key].KeyChar);
         }
 
         var outString = string.Join(", ", tempKeys);
@@ -127,24 +115,24 @@ public partial class MainProgram : Node2D {
     }
 
     public void StartEditing(bool addMode) {
-        GD.Print("Editing!");
         _editState = addMode ? EditState.Adding : EditState.Removing;
         _mainScreen.Visible = false;
         _editScreen.Visible = true;
         _editScreen.SetCurrentMode(addMode);
+        _editKeyLabel.CallDeferred("set_text", "<None>");
     }
 
     public void StopEditing(bool shouldSave) {
         if (shouldSave) {
-            foreach (var key in _tempKeys) {
-                if (_activeKeys.Contains(key)) {
+            foreach (var key in _tempKeys.Keys) {
+                if (_activeKeys.ContainsKey(key)) {
                     if (_editState == EditState.Removing)
                         _activeKeys.Remove(key);
                 }
 
                 else {
                     if (_editState == EditState.Adding)
-                        _activeKeys.Add(key);
+                        _activeKeys.Add(key, _tempKeys[key]);
                 }
             }
         }
@@ -154,8 +142,8 @@ public partial class MainProgram : Node2D {
         _editScreen.Visible = false;
         
         var tempKeys = new List<char>();
-        foreach (var key in _activeKeys) {
-            tempKeys.Add(key.KeyChar);
+        foreach (var key in _activeKeys.Keys) {
+            tempKeys.Add(_activeKeys[key].KeyChar);
         }
 
         var outString = string.Join(", ", tempKeys);
@@ -169,4 +157,18 @@ public partial class MainProgram : Node2D {
         GD.Print("Clearing!");
         _activeKeys.Clear();
     }
+
+    // public void SaveData() {
+    //     using (var fs = new FileStream("data.dat", FileMode.Create))
+    //     {
+    //         var formatter = new BinaryFormatter();
+    //         formatter.Serialize(fs, myObject);
+    //     }
+    // }
+    //
+    // public void LoadData() {
+    //     FileStream fs = new FileStream("data.dat", FileMode.Open); 
+    //     BinaryFormatter formatter = new BinaryFormatter(); 
+    //     MyClass myObject = (MyClass)formatter.Deserialize(fs);
+    // }
 }

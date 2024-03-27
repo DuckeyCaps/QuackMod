@@ -30,16 +30,7 @@ public partial class EditScreen : Panel {
     {
         QueueRedraw();
     }
-
-    public void SetCurrentKeys(HashSet<KeyInfo> currentKeys) {
-        var tempKeys = new List<char>();
-        foreach (var key in currentKeys) {
-            tempKeys.Add(key.KeyChar);
-        }
-
-        _keys.Text = string.Join(",", tempKeys);
-    }
-
+    
     public void SetCurrentMode(bool isAdding) {
         _mode.Text = isAdding ? "Currently Adding" : "Currently Removing";
     }
