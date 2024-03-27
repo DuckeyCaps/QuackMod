@@ -95,3 +95,6 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wlgsf")
 text = "Discard Edits
 "
+
+[connection signal="pressed" from="Content/Buttons/Save" to="." method="OnSavePressed"]
+[connection signal="pressed" from="Content/Buttons/Discard" to="." method="OnDiscardPressed"]

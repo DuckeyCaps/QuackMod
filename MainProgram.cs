@@ -25,15 +25,19 @@ public partial class MainProgram : Node2D {
 
     private PackedScene _mainScreenScene;
     private PackedScene _editScreenScene;
-    
+
     private MainScreen _mainScreen;
-    private Button _addKeysButton;
-    private Button _removeKeysButton;
-    private Button _clearKeysButton;
-    
     private EditScreen _editScreen;
 
-    private List<KeyInfo> _activeKeys = new();
+    private Label _mainKeyLabel;
+    private Label _editKeyLabel;
+
+    // private readonly Godot.Collections.Array<char> _activeKeys = new();
+    // private readonly Godot.Collections.Array<char> _tempKeys = new();
+    
+    // TODO: Maybe try swapping this for a dictionary? Current implementation isn't properly hashing and Contain()'ing
+    private readonly HashSet<KeyInfo> _activeKeys = new();
+    private readonly HashSet<KeyInfo> _tempKeys = new();
 
     private SimpleGlobalHook _globalHook;
     
@@ -60,11 +64,11 @@ public partial class MainProgram : Node2D {
         _editScreen.SetProgram(this);
         
         _uiLayer.AddChild(_mainScreen);
-        // _addKeysButton = _mainScreen.GetNode<Button>("Content/Buttons/Add");
-        // _removeKeysButton = _mainScreen.GetNode<Button>("Content/Buttons/Remove");
-        // _clearKeysButton = _mainScreen.GetNode<Button>("Content/Buttons/Clear");
-        
         _uiLayer.AddChild(_editScreen);
+        
+        _mainKeyLabel = _mainScreen.GetLabel();
+        _editKeyLabel = _editScreen.GetLabel();
+        
         _editScreen.Visible = false;
         _editState = EditState.NotEditing;
 
@@ -79,20 +83,34 @@ public partial class MainProgram : Node2D {
         var eventData = e.Data;
         var keyInfo = new KeyInfo(eventData);
 
-        if (_editState == EditState.NotEditing) {
-            //if (_activeKeys.Contains(keyInfo))
-            _player.CallDeferred("play");    
+        if (_editState != EditState.NotEditing) {
+            HandleEditKeyPress(keyInfo);
         }
         
         else {
-            HandleEditKeyPress(keyInfo);
+            GD.Print(_activeKeys.Count);
+            if (_activeKeys.Contains(keyInfo)) {
+                GD.Print("Quack");
+                _player.CallDeferred("play");
+            }    
         }
-
-        
     }
 
     private void HandleEditKeyPress(KeyInfo keyPressed) {
+        if (_tempKeys.Contains(keyPressed)) return;
+        GD.Print(keyPressed.ToString());
+
+        _tempKeys.Add(keyPressed);
         
+        var tempKeys = new List<char>();
+        foreach (var key in _tempKeys) {
+            tempKeys.Add(key.KeyChar);
+        }
+
+        var outString = string.Join(", ", tempKeys);
+        _editKeyLabel.CallDeferred("set_text", outString);
+        // _editScreen.CallDeferred("queue_redraw");
+        // _editScreen.CallDeferred(nameof(_editScreen.SetCurrentKeys), _tempKeys);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -114,6 +132,37 @@ public partial class MainProgram : Node2D {
         _mainScreen.Visible = false;
         _editScreen.Visible = true;
         _editScreen.SetCurrentMode(addMode);
+    }
+
+    public void StopEditing(bool shouldSave) {
+        if (shouldSave) {
+            foreach (var key in _tempKeys) {
+                if (_activeKeys.Contains(key)) {
+                    if (_editState == EditState.Removing)
+                        _activeKeys.Remove(key);
+                }
+
+                else {
+                    if (_editState == EditState.Adding)
+                        _activeKeys.Add(key);
+                }
+            }
+        }
+        
+        _tempKeys.Clear();
+        _mainScreen.Visible = true;
+        _editScreen.Visible = false;
+        
+        var tempKeys = new List<char>();
+        foreach (var key in _activeKeys) {
+            tempKeys.Add(key.KeyChar);
+        }
+
+        var outString = string.Join(", ", tempKeys);
+        _mainKeyLabel.CallDeferred("set_text", outString);
+
+        _editState = EditState.NotEditing;
+        // _mainScreen.CallDeferred("queue_redraw");
     }
 
     public void ClearKeys() {

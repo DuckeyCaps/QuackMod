@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SoundBinder;
 
@@ -19,20 +20,35 @@ public partial class EditScreen : Panel {
     public void SetProgram(MainProgram program) {
         _program = program;
     }
+    
+    public Label GetLabel() {
+        return _keys;
+    }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        QueueRedraw();
     }
 
-    public void SetCurrentKeys(List<KeyInfo> currentKeys) {
+    public void SetCurrentKeys(HashSet<KeyInfo> currentKeys) {
         var tempKeys = new List<char>();
         foreach (var key in currentKeys) {
             tempKeys.Add(key.KeyChar);
         }
+
+        _keys.Text = string.Join(",", tempKeys);
     }
 
     public void SetCurrentMode(bool isAdding) {
         _mode.Text = isAdding ? "Currently Adding" : "Currently Removing";
+    }
+
+    public void OnSavePressed() {
+        _program.StopEditing(true);
+    }
+
+    public void OnDiscardPressed() {
+        _program.StopEditing(false);
     }
 }
