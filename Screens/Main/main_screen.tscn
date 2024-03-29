@@ -187,7 +187,7 @@ text = "Clear Keys"
 [node name="Current Keys" type="Label" parent="Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
-text = "Assigned Keys: "
+text = "Currently Assigned Keys: "
 horizontal_alignment = 1
 
 [node name="Keys" type="Label" parent="Content"]
@@ -246,6 +246,7 @@ theme_override_styles/pressed = ExtResource("5_2o87u")
 theme_override_styles/focus = ExtResource("5_2o87u")
 text = "Get Quackin'"
 
+[connection signal="gui_input" from="TopBar" to="." method="OnTopBarGuiInput"]
 [connection signal="pressed" from="TopBar/Buttons/Min" to="." method="OnMinPressed"]
 [connection signal="pressed" from="TopBar/Buttons/Close" to="." method="OnClosePressed"]
 [connection signal="pressed" from="TopBar/Help" to="." method="OnHelpPressed"]

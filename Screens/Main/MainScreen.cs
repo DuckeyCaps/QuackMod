@@ -10,6 +10,9 @@ public partial class MainScreen : Panel {
     private VBoxContainer _mainContent;
     private VBoxContainer _helpContent;
     private PanelContainer _topBar;
+
+    private bool _followMouse;
+    private Vector2 _dragStartPos;
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -34,10 +37,26 @@ public partial class MainScreen : Panel {
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        if (_followMouse)
+            DisplayServer.WindowSetPosition(DisplayServer.WindowGetPosition() + 
+                                            (Vector2I)(GetGlobalMousePosition() - _dragStartPos));
     }
 
     public Label GetLabel() {
         return _keys;
+    }
+    
+    public void OnTopBarGuiInput(InputEvent e) {
+        GD.Print(e);
+        if (e.GetType() != typeof(InputEventMouseButton)) return;
+        var mouseEvent = (InputEventMouseButton)e;
+
+        if (mouseEvent.ButtonIndex != MouseButton.Left) return;
+        
+        _followMouse = !_followMouse;
+        if (_followMouse)
+            _dragStartPos = GetLocalMousePosition();
+
     }
 
     public void OnQuackPressed() {
