@@ -14,7 +14,6 @@ config/name="SoundBinder"
 run/main_scene="res://main_program.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
-boot_splash/minimum_display_time=1
 
 [display]
 

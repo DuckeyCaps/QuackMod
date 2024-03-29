@@ -1,18 +1,11 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using SharpHook;
 using SharpHook.Native;
 
 namespace SoundBinder;
 
-// TODO: Saving/loading (probably using .NET serialization since Godot can't understand SharpHook's classes)
-
 public partial class MainProgram : Node2D {
-    private const string SaveDataLocation = "user://quackmod.sav";
-    
     private AudioStreamPlayer _player;
 
     private CanvasLayer _uiLayer;
@@ -25,11 +18,8 @@ public partial class MainProgram : Node2D {
 
     private Label _mainKeyLabel;
     private Label _editKeyLabel;
-
-    // private readonly Dictionary<KeyCode, KeyboardEventData> _activeKeys = new();
-    // private readonly Dictionary<KeyCode, KeyboardEventData> _tempKeys = new();
     
-    private readonly HashSet<KeyCode> _activeKeys = new();
+    private HashSet<KeyCode> _activeKeys = new();
     private readonly HashSet<KeyCode> _tempKeys = new();
 
     private SimpleGlobalHook _globalHook;
@@ -49,7 +39,7 @@ public partial class MainProgram : Node2D {
         _player = GetNode<AudioStreamPlayer>("SFXPlayer");
         _uiLayer = GetNode<CanvasLayer>("UI");
         
-        LoadData();
+        _activeKeys = Utils.DataUtils.LoadData();
 
         _mainScreenScene = GD.Load<PackedScene>("res://Screens/Main/main_screen.tscn");
         _editScreenScene = GD.Load<PackedScene>("res://Screens/Edit/edit_screen.tscn");
@@ -84,20 +74,15 @@ public partial class MainProgram : Node2D {
         }
         
         else {
-            GD.Print(_activeKeys.Count);
             if (_activeKeys.Contains(eventData.KeyCode)) {
-                GD.Print("Quack");
-                _player.CallDeferred("play");
+                Quack();
             }    
         }
     }
 
     private void HandleEditKeyPress(KeyboardEventData keyPressed) {
-        if (_tempKeys.Contains(keyPressed.KeyCode)) return;
-        GD.Print(keyPressed.ToString());
+        if (!_tempKeys.Add(keyPressed.KeyCode)) return;
 
-        _tempKeys.Add(keyPressed.KeyCode);
-        
         var tempKeys = new List<string>();
         foreach (var key in _tempKeys) {
             tempKeys.Add(Utils.StringUtils.GetKeyCodeString(key));
@@ -112,6 +97,7 @@ public partial class MainProgram : Node2D {
     {
         if (_freshStart) {
             SetMainKeyLabel();
+            _mainScreen.CheckFirstScreen();
             _freshStart = false;
         }
         QueueRedraw();
@@ -123,9 +109,13 @@ public partial class MainProgram : Node2D {
         CloseGracefully();
     }
 
+    public void Quack() {
+        _player.CallDeferred("play");
+    }
+
     public void CloseGracefully() {
         _globalHook.Dispose();   
-        SaveData();
+        Utils.DataUtils.SaveData(_activeKeys);
         GetTree().Quit();
     }
 
@@ -152,6 +142,8 @@ public partial class MainProgram : Node2D {
             }
         }
         
+        Utils.DataUtils.SaveData(_activeKeys);
+        
         _tempKeys.Clear();
         _mainScreen.Visible = true;
         _editScreen.Visible = false;
@@ -162,40 +154,10 @@ public partial class MainProgram : Node2D {
     }
 
     public void ClearKeys() {
-        GD.Print("Clearing!");
         _activeKeys.Clear();
         _mainKeyLabel.CallDeferred("set_text", "<None>");
     }
     
-
-    private void SaveData() {
-        using var fileStream = File.Open(ProjectSettings.GlobalizePath(SaveDataLocation), FileMode.Create);
-        using var writer = new BinaryWriter(fileStream, Encoding.UTF8, false);
-        
-        foreach (var key in _activeKeys) {
-            writer.Write((ushort)key);
-        }
-    }
-    
-    
-    private void LoadData() {
-        if (!File.Exists(ProjectSettings.GlobalizePath(SaveDataLocation))) return;
-
-        using var fileStream = File.Open(ProjectSettings.GlobalizePath(SaveDataLocation), FileMode.Open);
-        using var reader = new BinaryReader(fileStream, Encoding.UTF8, false);
-        var hasData = true;
-        
-        while (hasData) {
-            try {
-                var keyVal = reader.ReadUInt16();
-                _activeKeys.Add((KeyCode)keyVal);
-            }
-            catch (EndOfStreamException e) {
-                Console.WriteLine("End of save data.");
-                hasData = false;
-            }
-        } 
-    }
 
     private void SetMainKeyLabel() {
         if (_activeKeys.Count == 0) {

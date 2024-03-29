@@ -13,7 +13,8 @@ public partial class EditScreen : Panel {
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
-        _keys = GetNode<Label>("Content/KeyLabels/Keys");
+        // _keys = GetNode<Label>("Content/KeyLabels/Keys");
+        _keys = GetNode<Label>("Content/Keys");
         _mode = GetNode<Label>("Content/Current Mode");
     }
     

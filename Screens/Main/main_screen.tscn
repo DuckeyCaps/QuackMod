@@ -1,67 +1,67 @@
-[gd_scene load_steps=11 format=3 uid="uid://w0xxi8t0f5au"]
+[gd_scene load_steps=31 format=3 uid="uid://w0xxi8t0f5au"]
 
 [ext_resource type="Script" path="res://Screens/Main/MainScreen.cs" id="1_1nsqh"]
 [ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_xt2pu"]
+[ext_resource type="Texture2D" uid="uid://3umf2os6owyw" path="res://Assets/WhiteHelpIcon.png" id="3_0vry3"]
+[ext_resource type="Texture2D" uid="uid://db3i6r080uv7p" path="res://Assets/MinimizeIcon.png" id="3_rpqog"]
+[ext_resource type="Texture2D" uid="uid://dfys3bol1tevg" path="res://Assets/CloseIcon.png" id="4_tn6rd"]
+[ext_resource type="StyleBox" uid="uid://bw0smsiobfsta" path="res://Screens/Main/GreenButton.tres" id="5_2o87u"]
+[ext_resource type="Texture2D" uid="uid://bpr72ess4f1wi" path="res://Assets/duck.png" id="6_huc4m"]
+[ext_resource type="StyleBox" uid="uid://dkt485vyo6nn6" path="res://Screens/Main/OrangeButton.tres" id="6_y1mkf"]
+[ext_resource type="StyleBox" uid="uid://bc8bmsen7eg1j" path="res://Screens/Main/RedButton.tres" id="7_hwexp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvjkm"]
 bg_color = Color(0.992157, 0.941176, 0.643137, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mqab"]
-bg_color = Color(0, 0, 0, 0.356863)
+bg_color = Color(0, 0, 0, 0.603922)
+border_color = Color(0.8, 0.8, 0.8, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8by7"]
-content_margin_left = 5.0
-content_margin_right = 5.0
-bg_color = Color(0.960784, 0.52549, 0.32549, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yv45m"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe4wf"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mcplq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bf2tc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0vm60"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmkoo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gs2oh"]
+content_margin_right = 3.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjtc0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrqn0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xxq4y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mh026"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d8s41"]
 content_margin_left = 5.0
-content_margin_right = 5.0
-bg_color = Color(0.941176, 0.317647, 0.32549, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n5obg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j67f0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vevxi"]
-content_margin_bottom = 80.0
+content_margin_left = 15.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a14xl"]
-content_margin_left = 10.0
-content_margin_top = 5.0
-content_margin_right = 10.0
-content_margin_bottom = 5.0
-bg_color = Color(0.537255, 0.780392, 0.396078, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6afj"]
+content_margin_top = 10.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lw18"]
-content_margin_left = 10.0
-content_margin_top = 5.0
-content_margin_right = 10.0
-content_margin_bottom = 5.0
-bg_color = Color(0.960784, 0.52549, 0.32549, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8xhrc"]
+content_margin_top = 10.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlgsf"]
-content_margin_left = 10.0
-content_margin_top = 5.0
-content_margin_right = 10.0
-content_margin_bottom = 5.0
-bg_color = Color(0.941176, 0.317647, 0.32549, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4cpum"]
+content_margin_top = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_admvr"]
+content_margin_top = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0bqu1"]
+content_margin_top = 10.0
 
 [node name="MainScreen" type="Panel"]
 anchors_preset = 15
@@ -94,26 +94,67 @@ alignment = 2
 
 [node name="Min" type="Button" parent="TopBar/Buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_u8by7")
-text = "_"
+theme_override_colors/icon_pressed_color = Color(0.960784, 0.52549, 0.32549, 1)
+theme_override_colors/icon_hover_color = Color(0.960784, 0.52549, 0.32549, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.960784, 0.52549, 0.32549, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yv45m")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mcplq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bf2tc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0vm60")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pmkoo")
+icon = ExtResource("3_rpqog")
 
 [node name="Close" type="Button" parent="TopBar/Buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_oe4wf")
-text = "X"
+theme_override_colors/icon_pressed_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_colors/icon_hover_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gs2oh")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vjtc0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_jrqn0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xxq4y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mh026")
+icon = ExtResource("4_tn6rd")
+
+[node name="Help" type="Button" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/icon_pressed_color = Color(0.537255, 0.780392, 0.396078, 1)
+theme_override_colors/icon_hover_color = Color(0.537255, 0.780392, 0.396078, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.537255, 0.780392, 0.396078, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_d8s41")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n5obg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j67f0")
+icon = ExtResource("3_0vry3")
+flat = true
+icon_alignment = 1
 
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_top = 43.0
 offset_right = 1151.0
 offset_bottom = 648.0
-alignment = 1
+theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="Content"]
+visible = false
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Welcome to \"QuackMod in Godot\"!"
+text = "Get quackin'!"
 horizontal_alignment = 1
+
+[node name="Quack" type="Button" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/icon_max_width = 200
+theme_override_styles/normal = SubResource("StyleBoxEmpty_h6afj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8xhrc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4cpum")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_admvr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0bqu1")
+icon = ExtResource("6_huc4m")
+flat = true
+icon_alignment = 1
 
 [node name="Buttons" type="HBoxContainer" parent="Content"]
 layout_mode = 2
@@ -121,35 +162,95 @@ alignment = 1
 
 [node name="Add" type="Button" parent="Content/Buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_a14xl")
+theme_override_styles/normal = ExtResource("5_2o87u")
+theme_override_styles/hover = ExtResource("5_2o87u")
+theme_override_styles/pressed = ExtResource("5_2o87u")
+theme_override_styles/focus = ExtResource("5_2o87u")
 text = "Add Keys"
 
 [node name="Remove" type="Button" parent="Content/Buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_0lw18")
+theme_override_styles/normal = ExtResource("6_y1mkf")
+theme_override_styles/hover = ExtResource("6_y1mkf")
+theme_override_styles/pressed = ExtResource("6_y1mkf")
+theme_override_styles/focus = ExtResource("6_y1mkf")
 text = "Remove Keys"
 
 [node name="Clear" type="Button" parent="Content/Buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_wlgsf")
+theme_override_styles/normal = ExtResource("7_hwexp")
+theme_override_styles/hover = ExtResource("7_hwexp")
+theme_override_styles/pressed = ExtResource("7_hwexp")
+theme_override_styles/focus = ExtResource("7_hwexp")
 text = "Clear Keys"
+
+[node name="Current Keys" type="Label" parent="Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
+text = "Assigned Keys: "
+horizontal_alignment = 1
+
+[node name="Keys" type="Label" parent="Content"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+text = "<None>"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="KeyLabels" type="HBoxContainer" parent="Content"]
 layout_mode = 2
 alignment = 1
 
-[node name="Current Keys" type="Label" parent="Content/KeyLabels"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
-text = "Current Keys: "
-horizontal_alignment = 1
+[node name="HelpContent" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_top = -1.0
+offset_right = 1151.0
+offset_bottom = 648.0
+theme_override_constants/separation = 28
+alignment = 1
 
-[node name="Keys" type="Label" parent="Content/KeyLabels"]
+[node name="Label" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-text = "<None>"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "Welcome to QuackMod!
+This program can be used to assign keys to quack when pressed.
+The keys currently assigned are shown at the bottom of the Main screen."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "\"Add Keys\" or \"Remove Keys\" will take you into the Editing screen. Here, the keys you press will be added to a temporary list. 
+- \"Save Keys\" will cause the keys in the list to be added or removed from the currently assigned key list, depending on which option you chose. 
+- \"Discard\" will make no changes, and will return you to the Main screen."
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "Your key list is saved in a Duckeys AppData folder as \"quackmod.sav\"
+No additional information is stored, and no data is EVER transmitted."
+autowrap_mode = 3
+
+[node name="CloseHelp" type="Button" parent="HelpContent"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = ExtResource("5_2o87u")
+theme_override_styles/hover = ExtResource("5_2o87u")
+theme_override_styles/pressed = ExtResource("5_2o87u")
+theme_override_styles/focus = ExtResource("5_2o87u")
+text = "Get Quackin'"
 
 [connection signal="pressed" from="TopBar/Buttons/Min" to="." method="OnMinPressed"]
 [connection signal="pressed" from="TopBar/Buttons/Close" to="." method="OnClosePressed"]
+[connection signal="pressed" from="TopBar/Help" to="." method="OnHelpPressed"]
+[connection signal="pressed" from="Content/Quack" to="." method="OnQuackPressed"]
 [connection signal="pressed" from="Content/Buttons/Add" to="." method="OnAddPressed"]
 [connection signal="pressed" from="Content/Buttons/Remove" to="." method="OnRemovePressed"]
 [connection signal="pressed" from="Content/Buttons/Clear" to="." method="OnClearPressed"]
+[connection signal="pressed" from="HelpContent/CloseHelp" to="." method="OnCloseHelpPressed"]
