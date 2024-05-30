@@ -10,6 +10,7 @@ public partial class MainScreen : Panel {
     private VBoxContainer _mainContent;
     private VBoxContainer _helpContent;
     private PanelContainer _topBar;
+    private Button _helpButton;
 
     private bool _followMouse;
     private Vector2 _dragStartPos;
@@ -17,9 +18,9 @@ public partial class MainScreen : Panel {
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        //_keys = GetNode<Label>("Content/KeyLabels/Keys");
         _keys = GetNode<Label>("Content/Keys");
         _topBar = GetNode<PanelContainer>("TopBar");
+        _helpButton = GetNode<Button>("TopBar/Help");
         _mainContent = GetNode<VBoxContainer>("Content");
         _helpContent = GetNode<VBoxContainer>("HelpContent");
     }
@@ -47,7 +48,7 @@ public partial class MainScreen : Panel {
     }
     
     public void OnTopBarGuiInput(InputEvent e) {
-        GD.Print(e);
+        // GD.Print(e);
         if (e.GetType() != typeof(InputEventMouseButton)) return;
         var mouseEvent = (InputEventMouseButton)e;
 
@@ -66,13 +67,15 @@ public partial class MainScreen : Panel {
     public void OnHelpPressed() {
         _helpContent.Visible = true;
         _mainContent.Visible = false;
-        _topBar.Visible = false;
+        // _topBar.Visible = false;
+        _helpButton.Visible = false;
     }
 
     public void OnCloseHelpPressed() {
         _helpContent.Visible = false;
         _mainContent.Visible = true;
-        _topBar.Visible = true;
+        // _topBar.Visible = true;
+        _helpButton.Visible = true;
     }
 
     public void OnMinPressed() {

@@ -62,18 +62,13 @@ public partial class MainProgram : Node2D {
         _globalHook = new SimpleGlobalHook(globalHookType: GlobalHookType.Keyboard);
         
         _globalHook.KeyPressed += GlobalHookOnKeyPressed;
-        // _globalHook.KeyTyped += GlobalHookOnKeyTyped;
         
         await _globalHook.RunAsync();
-    }
-    
-    private void GlobalHookOnKeyTyped(object sender, KeyboardHookEventArgs e) {
-        GD.Print(e.Data);
     }
 
     private void GlobalHookOnKeyPressed(object sender, KeyboardHookEventArgs e) {
         var eventData = e.Data;
-        GD.Print(e.Data);
+        // GD.Print(e.Data);
 
         if (_editState != EditState.NotEditing) {
             HandleEditKeyPress(eventData);
@@ -146,9 +141,8 @@ public partial class MainProgram : Node2D {
                         _activeKeys.Add(key);
                 }
             }
+            Utils.DataUtils.SaveData(_activeKeys);
         }
-        
-        Utils.DataUtils.SaveData(_activeKeys);
         
         _tempKeys.Clear();
         _mainScreen.Visible = true;
@@ -170,10 +164,13 @@ public partial class MainProgram : Node2D {
             _mainKeyLabel.CallDeferred("set_text", "<None>");
             return;
         }
+        
         var tempKeys = new List<string>();
         foreach (var key in _activeKeys) {
             tempKeys.Add(Utils.StringUtils.GetKeyCodeString(key));
         }
+        
+        // tempKeys.Sort();
 
         var outString = string.Join(", ", tempKeys);
         _mainKeyLabel.CallDeferred("set_text", outString);
