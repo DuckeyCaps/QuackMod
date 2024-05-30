@@ -30,7 +30,7 @@ public partial class MainScreen : Panel {
     }
 
     public void CheckFirstScreen() {
-        if (Utils.DataUtils.DoesSaveFileExist()) return;
+        if (Utils.DataUtils.DoesEitherSaveFileExist()) return;
         
         OnHelpPressed();
     }
