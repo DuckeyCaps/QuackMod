@@ -1,8 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://w0xxi8t0f5au"]
+[gd_scene load_steps=29 format=3 uid="uid://w0xxi8t0f5au"]
 
 [ext_resource type="Script" path="res://Screens/Main/MainScreen.cs" id="1_1nsqh"]
 [ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_xt2pu"]
-[ext_resource type="Texture2D" uid="uid://3umf2os6owyw" path="res://Assets/WhiteHelpIcon.png" id="3_0vry3"]
+[ext_resource type="Texture2D" uid="uid://3umf2os6owyw" path="res://Assets/HelpIcon.png" id="3_0vry3"]
 [ext_resource type="Texture2D" uid="uid://db3i6r080uv7p" path="res://Assets/MinimizeIcon.png" id="3_rpqog"]
 [ext_resource type="Texture2D" uid="uid://dfys3bol1tevg" path="res://Assets/CloseIcon.png" id="4_tn6rd"]
 [ext_resource type="StyleBox" uid="uid://bw0smsiobfsta" path="res://Screens/Main/GreenButton.tres" id="5_2o87u"]
@@ -46,22 +46,17 @@ content_margin_left = 5.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j67f0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vevxi"]
-content_margin_left = 15.0
+content_margin_left = 4.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6afj"]
-content_margin_top = 10.0
+[sub_resource type="LabelSettings" id="LabelSettings_rcish"]
+font_size = 18
+font_color = Color(0.168627, 0.156863, 0.0862745, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8xhrc"]
-content_margin_top = 10.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_04ffe"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4cpum"]
-content_margin_top = 10.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_admvr"]
-content_margin_top = 10.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0bqu1"]
-content_margin_top = 10.0
+[sub_resource type="LabelSettings" id="LabelSettings_6s1ut"]
+font_size = 24
+font_color = Color(0.168627, 0.156863, 0.0862745, 1)
 
 [node name="MainScreen" type="Panel"]
 anchors_preset = 15
@@ -136,22 +131,17 @@ offset_right = 1151.0
 offset_bottom = 648.0
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="Content"]
-visible = false
+[node name="Version" type="Label" parent="Content"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Get quackin'!"
-horizontal_alignment = 1
+text = "v2.1b"
+label_settings = SubResource("LabelSettings_rcish")
 
 [node name="Quack" type="Button" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/icon_max_width = 200
-theme_override_styles/normal = SubResource("StyleBoxEmpty_h6afj")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_8xhrc")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_4cpum")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_admvr")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_0bqu1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_04ffe")
 icon = ExtResource("6_huc4m")
 flat = true
 icon_alignment = 1
@@ -194,6 +184,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 text = "<None>"
+label_settings = SubResource("LabelSettings_6s1ut")
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -204,10 +195,10 @@ alignment = 1
 [node name="HelpContent" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 0
-offset_top = -1.0
+offset_top = 43.0
 offset_right = 1151.0
 offset_bottom = 648.0
-theme_override_constants/separation = 28
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="Label" type="Label" parent="HelpContent"]
@@ -233,8 +224,8 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Your key list is saved in a Duckeys AppData folder as \"quackmod.sav\"
-No additional information is stored, and no data is EVER transmitted."
+text = "Your key list is saved as \"quackmod.sav\" in a \"Duckeys\" within your user app data folder. No other information is stored, and no data is EVER transmitted."
+horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="CloseHelp" type="Button" parent="HelpContent"]

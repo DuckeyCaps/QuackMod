@@ -10,10 +10,13 @@ config_version=5
 
 [application]
 
-config/name="SoundBinder"
+config/name="QuackMod"
+config/description="Time to get quackin'!"
+config/version="2.0"
 run/main_scene="res://main_program.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="res://Assets/SplashScreen.png"
+config/icon="res://Assets/duck.png"
 
 [display]
 
