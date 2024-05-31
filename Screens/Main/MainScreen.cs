@@ -11,6 +11,7 @@ public partial class MainScreen : Panel {
     private VBoxContainer _helpContent;
     private PanelContainer _topBar;
     private Button _helpButton;
+    private Label _macHelpText;
 
     private bool _followMouse;
     private Vector2 _dragStartPos;
@@ -23,6 +24,7 @@ public partial class MainScreen : Panel {
         _helpButton = GetNode<Button>("TopBar/Help");
         _mainContent = GetNode<VBoxContainer>("Content");
         _helpContent = GetNode<VBoxContainer>("HelpContent");
+        _macHelpText = GetNode<Label>("HelpContent/LabelMac");
     }
 
     public void SetProgram(MainProgram program) {
@@ -69,6 +71,7 @@ public partial class MainScreen : Panel {
         _mainContent.Visible = false;
         // _topBar.Visible = false;
         _helpButton.Visible = false;
+        _macHelpText.Visible = OS.GetName() == "macOS";
     }
 
     public void OnCloseHelpPressed() {
@@ -76,6 +79,7 @@ public partial class MainScreen : Panel {
         _mainContent.Visible = true;
         // _topBar.Visible = true;
         _helpButton.Visible = true;
+        _macHelpText.Visible = false;
     }
 
     public void OnMinPressed() {
