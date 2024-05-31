@@ -1,15 +1,39 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1o0284q3n1ff"]
+[gd_scene load_steps=21 format=3 uid="uid://b1o0284q3n1ff"]
 
 [ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_j67dn"]
 [ext_resource type="Script" path="res://Screens/Edit/EditScreen.cs" id="2_ewgyt"]
 [ext_resource type="StyleBox" uid="uid://bw0smsiobfsta" path="res://Screens/Main/GreenButton.tres" id="3_l8iig"]
 [ext_resource type="StyleBox" uid="uid://bc8bmsen7eg1j" path="res://Screens/Main/RedButton.tres" id="4_bclch"]
+[ext_resource type="Texture2D" uid="uid://db3i6r080uv7p" path="res://Assets/MinimizeIcon.png" id="5_78axu"]
+[ext_resource type="Texture2D" uid="uid://dfys3bol1tevg" path="res://Assets/CloseIcon.png" id="6_al6hl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvjkm"]
 bg_color = Color(0.992157, 0.941176, 0.643137, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mqab"]
-bg_color = Color(0, 0, 0, 0.356863)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4tac"]
+bg_color = Color(0, 0, 0, 0.603922)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_64lkp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y7uaw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4cyxl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gi3nb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gqm5t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mmlp6"]
+content_margin_right = 3.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dtne0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4hand"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4grrl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hjsp5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a14xl"]
 content_margin_left = 10.0
@@ -49,7 +73,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 43.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7mqab")
+theme_override_styles/panel = SubResource("StyleBoxFlat_j4tac")
 
 [node name="Title" type="Label" parent="TopBar"]
 layout_mode = 2
@@ -57,6 +81,34 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "QuackMod"
 horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+alignment = 2
+
+[node name="Min" type="Button" parent="TopBar/Buttons"]
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.960784, 0.52549, 0.32549, 1)
+theme_override_colors/icon_hover_color = Color(0.960784, 0.52549, 0.32549, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.960784, 0.52549, 0.32549, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_64lkp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_y7uaw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4cyxl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_gi3nb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gqm5t")
+icon = ExtResource("5_78axu")
+
+[node name="Close" type="Button" parent="TopBar/Buttons"]
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_colors/icon_hover_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mmlp6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dtne0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4hand")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_4grrl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hjsp5")
+icon = ExtResource("6_al6hl")
 
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -107,5 +159,8 @@ autowrap_mode = 2
 layout_mode = 2
 alignment = 1
 
+[connection signal="gui_input" from="TopBar" to="." method="OnTopBarGuiInput"]
+[connection signal="pressed" from="TopBar/Buttons/Min" to="." method="OnMinPressed"]
+[connection signal="pressed" from="TopBar/Buttons/Close" to="." method="OnClosePressed"]
 [connection signal="pressed" from="Content/Buttons/Save" to="." method="OnSavePressed"]
 [connection signal="pressed" from="Content/Buttons/Discard" to="." method="OnDiscardPressed"]

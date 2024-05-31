@@ -12,8 +12,10 @@ config_version=5
 
 config/name="QuackMod"
 config/description="Time to get quackin'!"
-config/version="2.0"
+config/version="2.1"
 run/main_scene="res://main_program.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Duckeys"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 boot_splash/image="res://Assets/SplashScreen.png"
 config/icon="res://Assets/duck.png"

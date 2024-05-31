@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://w0xxi8t0f5au"]
+[gd_scene load_steps=31 format=3 uid="uid://w0xxi8t0f5au"]
 
 [ext_resource type="Script" path="res://Screens/Main/MainScreen.cs" id="1_1nsqh"]
 [ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_xt2pu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bpr72ess4f1wi" path="res://Assets/duck.png" id="6_huc4m"]
 [ext_resource type="StyleBox" uid="uid://dkt485vyo6nn6" path="res://Screens/Main/OrangeButton.tres" id="6_y1mkf"]
 [ext_resource type="StyleBox" uid="uid://bc8bmsen7eg1j" path="res://Screens/Main/RedButton.tres" id="7_hwexp"]
+[ext_resource type="FontFile" uid="uid://bish337w7eshu" path="res://Assets/Poppins.ttf" id="10_u2664"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvjkm"]
 bg_color = Color(0.992157, 0.941176, 0.643137, 1)
@@ -45,18 +46,23 @@ content_margin_left = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j67f0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vevxi"]
-content_margin_left = 4.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_rcish"]
-font_size = 18
-font_color = Color(0.168627, 0.156863, 0.0862745, 1)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_04ffe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6s1ut"]
 font_size = 24
 font_color = Color(0.168627, 0.156863, 0.0862745, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_j1jw4"]
+base_font = ExtResource("10_u2664")
+variation_embolden = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vevxi"]
+content_margin_left = 20.0
+content_margin_right = 5.0
+
+[sub_resource type="FontVariation" id="FontVariation_dw2i8"]
+base_font = ExtResource("10_u2664")
+variation_embolden = 0.6
 
 [node name="MainScreen" type="Panel"]
 anchors_preset = 15
@@ -129,19 +135,20 @@ layout_mode = 0
 offset_top = 43.0
 offset_right = 1151.0
 offset_bottom = 648.0
-theme_override_constants/separation = 20
-
-[node name="Version" type="Label" parent="Content"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "v2.1b"
-label_settings = SubResource("LabelSettings_rcish")
+theme_override_constants/separation = 10
 
 [node name="Quack" type="Button" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/icon_max_width = 200
 theme_override_styles/focus = SubResource("StyleBoxEmpty_04ffe")
+text = "
+
+
+
+
+
+"
 icon = ExtResource("6_huc4m")
 flat = true
 icon_alignment = 1
@@ -194,38 +201,50 @@ alignment = 1
 
 [node name="HelpContent" type="VBoxContainer" parent="."]
 visible = false
-layout_mode = 0
+layout_mode = 2
 offset_top = 43.0
 offset_right = 1151.0
 offset_bottom = 648.0
-theme_override_constants/separation = 24
+theme_override_constants/separation = 26
 alignment = 1
 
-[node name="Label" type="Label" parent="HelpContent"]
-custom_minimum_size = Vector2(100, 100)
+[node name="LabelTitle" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_j1jw4")
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Welcome to QuackMod!
-This program can be used to assign keys to quack when pressed.
-The keys currently assigned are shown at the bottom of the Main screen."
+text = "Welcome to QuackMod!"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label3" type="Label" parent="HelpContent"]
-custom_minimum_size = Vector2(100, 100)
+[node name="LabelTop" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "\"Add Keys\" or \"Remove Keys\" will take you into the Editing screen. Here, the keys you press will be added to a temporary list. 
-- \"Save Keys\" will cause the keys in the list to be added or removed from the currently assigned key list, depending on which option you chose. 
-- \"Discard\" will make no changes, and will return you to the Main screen."
+text = "This program can be used to assign keys to QUACK when pressed. The keys currently assigned are shown at the bottom of the Main screen."
 autowrap_mode = 3
 
-[node name="Label4" type="Label" parent="HelpContent"]
-custom_minimum_size = Vector2(100, 100)
+[node name="LabelMid" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Your key list is saved as \"quackmod.sav\" in a \"Duckeys\" within your user app data folder. No other information is stored, and no data is EVER transmitted."
-horizontal_alignment = 1
+text = "- \"Clear Keys\" will clear the current key list.
+- \"Add/Remove Keys\" will enter the Edit screen, where keys pressed will be added to a temp list. 
+- \"Save Edits\" will cause the keys in the list to be added or removed from the current key list. 
+- \"Discard Edits\" will make no changes and will return you to the Main screen."
+autowrap_mode = 3
+
+[node name="LabelMac" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_fonts/font = SubResource("FontVariation_j1jw4")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "Mac Users: You MUST go to \"System Preferences\" -> \"Security & Privacy\" -> \"Privacy\", and add QuackMod to BOTH \"Accessibility\" and \"Input Monitoring\""
 autowrap_mode = 3
 
 [node name="CloseHelp" type="Button" parent="HelpContent"]
@@ -236,6 +255,47 @@ theme_override_styles/hover = ExtResource("5_2o87u")
 theme_override_styles/pressed = ExtResource("5_2o87u")
 theme_override_styles/focus = ExtResource("5_2o87u")
 text = "Get Quackin'"
+
+[node name="LabelBot" type="Label" parent="HelpContent"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "Your key list is saved as \"quackmod.sav\" in a \"Duckeys\" within your user app data folder. 
+No other information is stored, and no data is EVER transmitted.
+"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Trademark" type="Label" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+offset_left = 1.0
+offset_top = 624.0
+offset_right = 1152.0
+offset_bottom = 647.0
+theme_override_fonts/font = SubResource("FontVariation_dw2i8")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "Duckeys™️
+"
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 3
+
+[node name="Version" type="Label" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+offset_left = 1.0
+offset_top = 43.0
+offset_right = 1152.0
+offset_bottom = 66.0
+theme_override_fonts/font = SubResource("FontVariation_dw2i8")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
+text = "v2.2b"
+horizontal_alignment = 2
+autowrap_mode = 3
 
 [connection signal="gui_input" from="TopBar" to="." method="OnTopBarGuiInput"]
 [connection signal="pressed" from="TopBar/Buttons/Min" to="." method="OnMinPressed"]
