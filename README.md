@@ -1,2 +1,2 @@
-# SoundBinder
-Desktop application for mapping keys to various sounds
+# QuackMod 2.0
+Rewrite in Godot for Duckeys QuackMod software
