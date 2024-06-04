@@ -244,7 +244,7 @@ theme_override_colors/font_color = Color(0.941176, 0.317647, 0.32549, 1)
 theme_override_fonts/font = SubResource("FontVariation_j1jw4")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "Mac Users: You MUST go to \"System Preferences\" -> \"Security & Privacy\" -> \"Privacy\", and add QuackMod to BOTH \"Accessibility\" and \"Input Monitoring\""
+text = "Mac Users: You MUST go to \"System Preferences\" -> \"Security & Privacy\", and add QuackMod to BOTH \"Accessibility\" and \"Input Monitoring\""
 autowrap_mode = 3
 
 [node name="CloseHelp" type="Button" parent="HelpContent"]
