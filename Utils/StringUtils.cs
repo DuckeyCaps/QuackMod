@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Godot;
 using SharpHook.Native;
 
 namespace SoundBinder.Utils;
 
 public static class StringUtils {
  
-        public readonly static Dictionary<KeyCode, string> KeyCodeToStringMap = new()
+    private readonly static Dictionary<KeyCode, string> MacCodeMap = new()
     {
         // Undefined
         { KeyCode.VcUndefined, "Undefined" },
@@ -85,7 +86,201 @@ public static class StringUtils {
         { KeyCode.VcBackslash, "\\" },
         { KeyCode.VcSemicolon, ";" },
         { KeyCode.VcQuote, "'" },
-        { KeyCode.VcEnter, "Enter" },
+        { KeyCode.VcEnter, "Return" },
+        { KeyCode.VcComma, "," },
+        { KeyCode.VcPeriod, "." },
+        { KeyCode.VcSlash, "/" },
+        { KeyCode.VcSpace, "Space" },
+        // { KeyCode.VcUnderscore, "_" },
+        
+        // Weird Ones
+        { KeyCode.Vc102, "<> or \\|" },
+        { KeyCode.VcHelp, "Help" },
+        
+        { KeyCode.VcDelete, "Fwd Del" },
+        { KeyCode.VcHome, "Home" },
+        { KeyCode.VcEnd, "End" },
+        { KeyCode.VcPageUp, "Page Up" },
+        { KeyCode.VcPageDown, "Page Down" },
+        
+        // Arrow Keys
+        { KeyCode.VcUp, "Up Arrow" },
+        { KeyCode.VcLeft, "Left Arrow" },
+        { KeyCode.VcRight, "Right Arrow" },
+        { KeyCode.VcDown, "Down Arrow" },
+        
+        // Number Pad
+        { KeyCode.VcNumLock, "Num Lock" },
+        { KeyCode.VcNumPadClear, "Num Clear" },
+        { KeyCode.VcNumPadDivide, "Num /" },
+        { KeyCode.VcNumPadMultiply, "Num *" },
+        { KeyCode.VcNumPadSubtract, "Num -" },
+        { KeyCode.VcNumPadAdd, "Num +" },
+        { KeyCode.VcNumPadEnter, "Num Return" },
+        { KeyCode.VcNumPadDecimal, "Num ." },
+        { KeyCode.VcNumPad0, "Num 0" },
+        { KeyCode.VcNumPad1, "Num 1" },
+        { KeyCode.VcNumPad2, "Num 2" },
+        { KeyCode.VcNumPad3, "Num 3" },
+        { KeyCode.VcNumPad4, "Num 4" },
+        { KeyCode.VcNumPad5, "Num 5" },
+        { KeyCode.VcNumPad6, "Num 6" },
+        { KeyCode.VcNumPad7, "Num 7" },
+        { KeyCode.VcNumPad8, "Num 8" },
+        { KeyCode.VcNumPad9, "Num 9" },
+        
+        // Control Keys
+        { KeyCode.VcLeftShift, "Left Shift" },
+        { KeyCode.VcRightShift, "Right Shift" },
+        { KeyCode.VcLeftControl, "Left Ctrl" },
+        { KeyCode.VcRightControl, "Right Ctrl" },
+        { KeyCode.VcLeftAlt, "Left Option" },
+        { KeyCode.VcRightAlt, "Right Option" },
+        { KeyCode.VcLeftMeta, "Left Command" },
+        { KeyCode.VcRightMeta, "Right Command" },
+        { KeyCode.VcContextMenu, "Context Menu" },
+        { KeyCode.VcFunction, "Function" },
+        
+        { KeyCode.VcChangeInputSource, "Change Input Source" },
+        { KeyCode.VcPower, "Power" },
+        { KeyCode.VcSleep, "Sleep" },
+        
+        // Media Controls
+        { KeyCode.VcMediaPlay, "Play/Pause Media" },
+        { KeyCode.VcMediaStop, "Stop Media" },
+        { KeyCode.VcMediaPrevious, "Previous Media" },
+        { KeyCode.VcMediaNext, "Next Media" },
+        { KeyCode.VcMediaSelect, "Select Media" },
+        { KeyCode.VcMediaEject, "Eject Media" },
+
+        // Volume Controls
+        { KeyCode.VcVolumeMute, "Volume Mute" },
+        { KeyCode.VcVolumeDown, "Volume Down" },
+        { KeyCode.VcVolumeUp, "Volume Up" },
+        
+        // App Shortcuts
+        { KeyCode.VcApp1, "Launch App 1" },
+        { KeyCode.VcApp2, "Launch App 2" },
+        { KeyCode.VcApp3, "Launch App 3" },
+        { KeyCode.VcApp4, "Launch App 4" },
+        { KeyCode.VcAppBrowser, "Launch Browser" },
+        { KeyCode.VcAppCalculator, "Launch Calculator" },
+        { KeyCode.VcAppMail, "Launch Mail" },
+        
+        // Browser Control
+        { KeyCode.VcBrowserSearch, "Browser Search" },
+        { KeyCode.VcBrowserHome, "Browser Home" },
+        { KeyCode.VcBrowserBack, "Browser Back" },
+        { KeyCode.VcBrowserForward, "Browser Forward" },
+        { KeyCode.VcBrowserStop, "Browser Stop" },
+        { KeyCode.VcBrowserRefresh, "Browser Refresh" },
+        { KeyCode.VcBrowserFavorites, "Browser Favorites" },
+        
+        // Language Toggles
+        // { KeyCode.VcKatakanaHiragana, "KatakanaHiragana" },
+        // { KeyCode.VcKatakana, "Katakana" },
+        // { KeyCode.VcHiragana, "Hiragana" },
+        { KeyCode.VcKana, "Kana" },
+        { KeyCode.VcKanji, "Kanji" },
+        { KeyCode.VcHangul, "Hangul" },
+        { KeyCode.VcJunja, "Junja" },
+        { KeyCode.VcFinal, "Final" },
+        { KeyCode.VcHanja, "Hanja" },
+        { KeyCode.VcAccept, "IME Accept" },
+        { KeyCode.VcConvert, "IME Convert" },
+        { KeyCode.VcNonConvert, "IME NonConvert" },
+        { KeyCode.VcImeOn, "IME On" },
+        { KeyCode.VcImeOff, "IME Off" },
+        { KeyCode.VcModeChange, "IME Mode Change" },
+        { KeyCode.VcProcess, "IME Process" },
+        
+        { KeyCode.VcAlphanumeric, "Alphanumeric" },
+        { KeyCode.VcUnderscore, "Underscore" },
+        { KeyCode.VcYen, "Yen" },
+        { KeyCode.VcJpComma, "Num Comma" },
+    };
+    
+    private readonly static Dictionary<KeyCode, string> WindowsCodeMap = new()
+    {
+        // Undefined
+        { KeyCode.VcUndefined, "Undefined" },
+        
+        // Normal keys
+        { KeyCode.VcEscape, "Escape" },
+        { KeyCode.VcF1, "F1" },
+        { KeyCode.VcF2, "F2" },
+        { KeyCode.VcF3, "F3" },
+        { KeyCode.VcF4, "F4" },
+        { KeyCode.VcF5, "F5" },
+        { KeyCode.VcF6, "F6" },
+        { KeyCode.VcF7, "F7" },
+        { KeyCode.VcF8, "F8" },
+        { KeyCode.VcF9, "F9" },
+        { KeyCode.VcF10, "F10" },
+        { KeyCode.VcF11, "F11" },
+        { KeyCode.VcF12, "F12" },
+        { KeyCode.VcF13, "F13" },
+        { KeyCode.VcF14, "F14" },
+        { KeyCode.VcF15, "F15" },
+        { KeyCode.VcF16, "F16" },
+        { KeyCode.VcF17, "F17" },
+        { KeyCode.VcF18, "F18" },
+        { KeyCode.VcF19, "F19" },
+        { KeyCode.VcF20, "F20" },
+        { KeyCode.VcF21, "F21" },
+        { KeyCode.VcF22, "F22" },
+        { KeyCode.VcF23, "F23" },
+        { KeyCode.VcF24, "F24" },
+        { KeyCode.VcBackQuote, "`" },
+        { KeyCode.Vc1, "1" },
+        { KeyCode.Vc2, "2" },
+        { KeyCode.Vc3, "3" },
+        { KeyCode.Vc4, "4" },
+        { KeyCode.Vc5, "5" },
+        { KeyCode.Vc6, "6" },
+        { KeyCode.Vc7, "7" },
+        { KeyCode.Vc8, "8" },
+        { KeyCode.Vc9, "9" },
+        { KeyCode.Vc0, "0" },
+        { KeyCode.VcMinus, "-" },
+        { KeyCode.VcEquals, "=" },
+        { KeyCode.VcBackspace, "Delete" },
+        { KeyCode.VcTab, "Tab" },
+        { KeyCode.VcCapsLock, "Caps Lock" },
+        { KeyCode.VcA, "A" },
+        { KeyCode.VcB, "B" },
+        { KeyCode.VcC, "C" },
+        { KeyCode.VcD, "D" },
+        { KeyCode.VcE, "E" },
+        { KeyCode.VcF, "F" },
+        { KeyCode.VcG, "G" },
+        { KeyCode.VcH, "H" },
+        { KeyCode.VcI, "I" },
+        { KeyCode.VcJ, "J" },
+        { KeyCode.VcK, "K" },
+        { KeyCode.VcL, "L" },
+        { KeyCode.VcM, "M" },
+        { KeyCode.VcN, "N" },
+        { KeyCode.VcO, "O" },
+        { KeyCode.VcP, "P" },
+        { KeyCode.VcQ, "Q" },
+        { KeyCode.VcR, "R" },
+        { KeyCode.VcS, "S" },
+        { KeyCode.VcT, "T" },
+        { KeyCode.VcU, "U" },
+        { KeyCode.VcV, "V" },
+        { KeyCode.VcW, "W" },
+        { KeyCode.VcX, "X" },
+        { KeyCode.VcY, "Y" },
+        { KeyCode.VcZ, "Z" },
+        
+        // Symbols
+        { KeyCode.VcOpenBracket, "[" },
+        { KeyCode.VcCloseBracket, "]" },
+        { KeyCode.VcBackslash, "\\" },
+        { KeyCode.VcSemicolon, ";" },
+        { KeyCode.VcQuote, "'" },
+        { KeyCode.VcEnter, "Return" },
         { KeyCode.VcComma, "," },
         { KeyCode.VcPeriod, "." },
         { KeyCode.VcSlash, "/" },
@@ -200,5 +395,12 @@ public static class StringUtils {
         { KeyCode.VcProcess, "IME Process" },
     };
         
-    public static string GetKeyCodeString(KeyCode code) => KeyCodeToStringMap[code];
+    public static string GetKeyCodeString(KeyCode code) {
+        return OS.GetName() switch
+        {
+            "Windows" => WindowsCodeMap[code],
+            "macOS" => MacCodeMap[code],
+            _ => ""
+        };
+    }
 }
