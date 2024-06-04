@@ -21,6 +21,7 @@ public partial class EditScreen : Panel {
         _keys = GetNode<Label>("Content/Keys");
         _mode = GetNode<Label>("Content/Current Mode");
         _topBar = GetNode<PanelContainer>("TopBar");
+        _followMouse = false;
     }
     
     public void SetProgram(MainProgram program) {
@@ -34,6 +35,9 @@ public partial class EditScreen : Panel {
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        if (_followMouse)
+            DisplayServer.WindowSetPosition(DisplayServer.WindowGetPosition() + 
+                                            (Vector2I)(GetGlobalMousePosition() - _dragStartPos));
         QueueRedraw();
     }
     
