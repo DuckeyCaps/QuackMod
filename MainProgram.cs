@@ -33,7 +33,7 @@ public partial class MainProgram : Node2D {
     private EditState _editState;
 
     private bool _freshStart = true;
-    private bool _canQuack;
+    private HashSet<KeyCode> _hasQuacked = new();
     
     // Called when the node enters the scene tree for the first time.
     public override async void _Ready() {
@@ -64,8 +64,6 @@ public partial class MainProgram : Node2D {
         
         _globalHook.KeyPressed += GlobalHookOnKeyPressed;
         _globalHook.KeyReleased += GlobalHookOnKeyReleased;
-
-        _canQuack = true;
         
         await _globalHook.RunAsync();
     }
@@ -79,15 +77,17 @@ public partial class MainProgram : Node2D {
         }
         
         else {
-            if (_activeKeys.Contains(eventData.KeyCode) && _canQuack) {
+            if (_activeKeys.Contains(eventData.KeyCode) && !_hasQuacked.Contains(eventData.KeyCode)) {
                 Quack();
-                _canQuack = false;
+                _hasQuacked.Add(eventData.KeyCode);
             }    
         }
     }
 
     private void GlobalHookOnKeyReleased(object sender, KeyboardHookEventArgs e) {
-        _canQuack = true;
+        var eventKey = e.Data.KeyCode;
+        if (_hasQuacked.Contains(eventKey))
+            _hasQuacked.Remove(eventKey);
     }
 
     private void HandleEditKeyPress(KeyboardEventData keyPressed) {
