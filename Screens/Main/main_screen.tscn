@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://w0xxi8t0f5au"]
+[gd_scene load_steps=34 format=3 uid="uid://w0xxi8t0f5au"]
 
 [ext_resource type="Script" path="res://Screens/Main/MainScreen.cs" id="1_1nsqh"]
 [ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_xt2pu"]
@@ -6,13 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://db3i6r080uv7p" path="res://Assets/MinimizeIcon.png" id="3_rpqog"]
 [ext_resource type="Texture2D" uid="uid://dfys3bol1tevg" path="res://Assets/CloseIcon.png" id="4_tn6rd"]
 [ext_resource type="StyleBox" uid="uid://bw0smsiobfsta" path="res://Screens/Main/GreenButton.tres" id="5_2o87u"]
-[ext_resource type="Texture2D" uid="uid://bpr72ess4f1wi" path="res://Assets/duck.png" id="6_huc4m"]
+[ext_resource type="Texture2D" uid="uid://bcj4u44h5bm0t" path="res://Assets/Pengu Update Icons 2024/DuckeysLogoCropped.png" id="6_alts4"]
 [ext_resource type="StyleBox" uid="uid://dkt485vyo6nn6" path="res://Screens/Main/OrangeButton.tres" id="6_y1mkf"]
 [ext_resource type="StyleBox" uid="uid://bc8bmsen7eg1j" path="res://Screens/Main/RedButton.tres" id="7_hwexp"]
 [ext_resource type="FontFile" uid="uid://bish337w7eshu" path="res://Assets/Poppins.ttf" id="10_u2664"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvjkm"]
-bg_color = Color(0.992157, 0.941176, 0.643137, 1)
+[ext_resource type="Texture2D" uid="uid://1ukm0jprjqww" path="res://Assets/Icons/Duckeys60xOutline.png" id="11_vbgd3"]
+[ext_resource type="Texture2D" uid="uid://diso1qthev8yr" path="res://Assets/Icons/Pengu60xOutline.png" id="12_on4k6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mqab"]
 bg_color = Color(0, 0, 0, 0.603922)
@@ -46,11 +45,11 @@ content_margin_left = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j67f0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_04ffe"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_md5b6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6s1ut"]
-font_size = 24
-font_color = Color(0.168627, 0.156863, 0.0862745, 1)
+font_size = 30
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_j1jw4"]
 base_font = ExtResource("10_u2664")
@@ -59,6 +58,28 @@ variation_embolden = 1.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vevxi"]
 content_margin_left = 20.0
 content_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prvcs"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.537255, 0.780392, 0.396078, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka3uv"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.941176, 0.317647, 0.32549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="FontVariation" id="FontVariation_dw2i8"]
 base_font = ExtResource("10_u2664")
@@ -71,7 +92,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xt2pu")
-theme_override_styles/panel = SubResource("StyleBoxFlat_mvjkm")
 script = ExtResource("1_1nsqh")
 
 [node name="TopBar" type="PanelContainer" parent="."]
@@ -130,18 +150,15 @@ icon = ExtResource("3_0vry3")
 flat = true
 icon_alignment = 1
 
-[node name="Content" type="VBoxContainer" parent="."]
+[node name="SoundButton" type="Button" parent="."]
 layout_mode = 0
 offset_top = 43.0
-offset_right = 1151.0
-offset_bottom = 648.0
-theme_override_constants/separation = 10
-
-[node name="Quack" type="Button" parent="Content"]
-layout_mode = 2
+offset_right = 2297.0
+offset_bottom = 635.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(7.4, 0)
 size_flags_horizontal = 4
-theme_override_constants/icon_max_width = 200
-theme_override_styles/focus = SubResource("StyleBoxEmpty_04ffe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_md5b6")
 text = "
 
 
@@ -149,15 +166,24 @@ text = "
 
 
 "
-icon = ExtResource("6_huc4m")
+icon = ExtResource("6_alts4")
 flat = true
 icon_alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="Content"]
-layout_mode = 2
+[node name="MainContent" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 228.0
+offset_right = 1151.0
+offset_bottom = 649.0
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Add" type="Button" parent="Content/Buttons"]
+[node name="Buttons" type="HBoxContainer" parent="MainContent"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Add" type="Button" parent="MainContent/Buttons"]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("5_2o87u")
 theme_override_styles/hover = ExtResource("5_2o87u")
@@ -165,7 +191,7 @@ theme_override_styles/pressed = ExtResource("5_2o87u")
 theme_override_styles/focus = ExtResource("5_2o87u")
 text = "Add Keys"
 
-[node name="Remove" type="Button" parent="Content/Buttons"]
+[node name="Remove" type="Button" parent="MainContent/Buttons"]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_y1mkf")
 theme_override_styles/hover = ExtResource("6_y1mkf")
@@ -173,7 +199,7 @@ theme_override_styles/pressed = ExtResource("6_y1mkf")
 theme_override_styles/focus = ExtResource("6_y1mkf")
 text = "Remove Keys"
 
-[node name="Clear" type="Button" parent="Content/Buttons"]
+[node name="Clear" type="Button" parent="MainContent/Buttons"]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("7_hwexp")
 theme_override_styles/hover = ExtResource("7_hwexp")
@@ -181,13 +207,13 @@ theme_override_styles/pressed = ExtResource("7_hwexp")
 theme_override_styles/focus = ExtResource("7_hwexp")
 text = "Clear Keys"
 
-[node name="Current Keys" type="Label" parent="Content"]
+[node name="Current Keys" type="Label" parent="MainContent"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
-text = "Currently Assigned Keys: "
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Current Keys: "
 horizontal_alignment = 1
 
-[node name="Keys" type="Label" parent="Content"]
+[node name="Keys" type="Label" parent="MainContent"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 text = "<None>"
@@ -195,7 +221,7 @@ label_settings = SubResource("LabelSettings_6s1ut")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="KeyLabels" type="HBoxContainer" parent="Content"]
+[node name="KeyLabels" type="HBoxContainer" parent="MainContent"]
 layout_mode = 2
 alignment = 1
 
@@ -267,6 +293,56 @@ No other information is stored, and no data is EVER transmitted.
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="EditContent" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_top = 43.0
+offset_right = 1151.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="Mode" type="Label" parent="EditContent"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="EditContent"]
+layout_mode = 2
+alignment = 1
+
+[node name="Save" type="Button" parent="EditContent/Buttons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_prvcs")
+theme_override_styles/hover = ExtResource("5_2o87u")
+theme_override_styles/pressed = ExtResource("5_2o87u")
+theme_override_styles/focus = ExtResource("5_2o87u")
+text = "Save Edits"
+
+[node name="Discard" type="Button" parent="EditContent/Buttons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ka3uv")
+theme_override_styles/hover = ExtResource("7_hwexp")
+theme_override_styles/pressed = ExtResource("7_hwexp")
+theme_override_styles/focus = ExtResource("7_hwexp")
+text = "Discard Edits
+"
+
+[node name="Current Keys" type="Label" parent="EditContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
+text = "Keys: "
+horizontal_alignment = 1
+
+[node name="Keys" type="Label" parent="EditContent"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+text = "<None>"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KeyLabels" type="HBoxContainer" parent="EditContent"]
+layout_mode = 2
+alignment = 1
+
 [node name="Trademark" type="Label" parent="."]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
@@ -274,6 +350,7 @@ offset_left = 1.0
 offset_top = 624.0
 offset_right = 1152.0
 offset_bottom = 647.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = SubResource("FontVariation_dw2i8")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
@@ -290,19 +367,41 @@ offset_left = 1.0
 offset_top = 43.0
 offset_right = 1152.0
 offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = SubResource("FontVariation_dw2i8")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
-text = "v2.3"
+text = "v2.4b"
 horizontal_alignment = 2
 autowrap_mode = 3
+
+[node name="ThemeIcons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 135.0
+grow_vertical = 0
+
+[node name="Duck" type="Button" parent="ThemeIcons"]
+layout_mode = 2
+icon = ExtResource("11_vbgd3")
+flat = true
+
+[node name="Pengu" type="Button" parent="ThemeIcons"]
+layout_mode = 2
+icon = ExtResource("12_on4k6")
+flat = true
 
 [connection signal="gui_input" from="TopBar" to="." method="OnTopBarGuiInput"]
 [connection signal="pressed" from="TopBar/Buttons/Min" to="." method="OnMinPressed"]
 [connection signal="pressed" from="TopBar/Buttons/Close" to="." method="OnClosePressed"]
 [connection signal="pressed" from="TopBar/Help" to="." method="OnHelpPressed"]
-[connection signal="pressed" from="Content/Quack" to="." method="OnQuackPressed"]
-[connection signal="pressed" from="Content/Buttons/Add" to="." method="OnAddPressed"]
-[connection signal="pressed" from="Content/Buttons/Remove" to="." method="OnRemovePressed"]
-[connection signal="pressed" from="Content/Buttons/Clear" to="." method="OnClearPressed"]
+[connection signal="pressed" from="SoundButton" to="." method="OnQuackPressed"]
+[connection signal="pressed" from="MainContent/Buttons/Add" to="." method="OnAddPressed"]
+[connection signal="pressed" from="MainContent/Buttons/Remove" to="." method="OnRemovePressed"]
+[connection signal="pressed" from="MainContent/Buttons/Clear" to="." method="OnClearPressed"]
 [connection signal="pressed" from="HelpContent/CloseHelp" to="." method="OnCloseHelpPressed"]
+[connection signal="pressed" from="EditContent/Buttons/Save" to="." method="OnSavePressed"]
+[connection signal="pressed" from="EditContent/Buttons/Discard" to="." method="OnDiscardPressed"]
