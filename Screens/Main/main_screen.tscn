@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://w0xxi8t0f5au"]
+[gd_scene load_steps=47 format=3 uid="uid://w0xxi8t0f5au"]
 
 [ext_resource type="Script" path="res://Screens/Main/MainScreen.cs" id="1_1nsqh"]
 [ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_xt2pu"]
@@ -46,7 +46,15 @@ content_margin_left = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j67f0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_md5b6"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vsd74"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tl4cg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bo4x2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q7bn1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nqr5o"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6s1ut"]
 font = ExtResource("10_u2664")
@@ -61,31 +69,29 @@ variation_embolden = 1.0
 content_margin_left = 20.0
 content_margin_right = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prvcs"]
-content_margin_left = 10.0
-content_margin_top = 5.0
-content_margin_right = 10.0
-content_margin_bottom = 5.0
-bg_color = Color(0.537255, 0.780392, 0.396078, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka3uv"]
-content_margin_left = 10.0
-content_margin_top = 5.0
-content_margin_right = 10.0
-content_margin_bottom = 5.0
-bg_color = Color(0.941176, 0.317647, 0.32549, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [sub_resource type="FontVariation" id="FontVariation_dw2i8"]
 base_font = ExtResource("10_u2664")
 variation_embolden = 0.6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n5b05"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s8gry"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oattj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_56gej"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_53o6k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ooh52"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nalt6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xwhdt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wo08m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nhi6"]
 
 [node name="MainScreen" type="Panel"]
 anchors_preset = 15
@@ -154,14 +160,20 @@ flat = true
 icon_alignment = 1
 
 [node name="SoundButton" type="Button" parent="."]
-layout_mode = 0
-offset_top = 43.0
-offset_right = 2297.0
-offset_bottom = 635.0
+layout_mode = 1
+anchors_preset = -1
+offset_left = 434.5
+offset_top = 52.0
+offset_right = 998.5
+offset_bottom = 612.0
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(7.4, 0)
 size_flags_horizontal = 4
-theme_override_styles/focus = SubResource("StyleBoxEmpty_md5b6")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vsd74")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_tl4cg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bo4x2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_q7bn1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nqr5o")
 text = "
 
 
@@ -171,7 +183,7 @@ text = "
 "
 icon = ExtResource("7_v5qx6")
 flat = true
-icon_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="MainContent" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -315,7 +327,7 @@ alignment = 1
 
 [node name="Save" type="Button" parent="EditContent/Buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_prvcs")
+theme_override_styles/normal = ExtResource("5_2o87u")
 theme_override_styles/hover = ExtResource("5_2o87u")
 theme_override_styles/pressed = ExtResource("5_2o87u")
 theme_override_styles/focus = ExtResource("5_2o87u")
@@ -323,7 +335,7 @@ text = "Save Edits"
 
 [node name="Discard" type="Button" parent="EditContent/Buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_ka3uv")
+theme_override_styles/normal = ExtResource("7_hwexp")
 theme_override_styles/hover = ExtResource("7_hwexp")
 theme_override_styles/pressed = ExtResource("7_hwexp")
 theme_override_styles/focus = ExtResource("7_hwexp")
@@ -332,13 +344,14 @@ text = "Discard Edits
 
 [node name="Current Keys" type="Label" parent="EditContent"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.168627, 0.156863, 0.0862745, 1)
+theme_override_fonts/font = ExtResource("10_u2664")
 text = "Keys: "
 horizontal_alignment = 1
 
 [node name="Keys" type="Label" parent="EditContent"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("10_u2664")
 text = "<None>"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -384,17 +397,31 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -64.0
-offset_right = 135.0
+offset_left = 10.0
+offset_top = -72.0
+offset_right = 145.0
+offset_bottom = -8.0
 grow_vertical = 0
 
 [node name="Duck" type="Button" parent="ThemeIcons"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_n5b05")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_s8gry")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_oattj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_56gej")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_53o6k")
 icon = ExtResource("11_vbgd3")
 flat = true
+alignment = 0
+icon_alignment = 1
 
 [node name="Penguin" type="Button" parent="ThemeIcons"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ooh52")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_nalt6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_xwhdt")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wo08m")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2nhi6")
 icon = ExtResource("12_on4k6")
 flat = true
 

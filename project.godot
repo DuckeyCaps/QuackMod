@@ -17,6 +17,8 @@ run/main_scene="res://main_program.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Duckeys"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/show_image=false
 boot_splash/image="res://Assets/SplashScreen.png"
 config/icon="res://Assets/duck.png"
 

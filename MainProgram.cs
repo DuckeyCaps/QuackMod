@@ -18,6 +18,9 @@ public partial class MainProgram : Node2D
     private Label _mainKeyLabel;
     private Label _editKeyLabel;
 
+    private Button _duckButton;
+    private Button _penguinButton;
+
     private HashSet<KeyCode> _activeKeys = new();
     private readonly HashSet<KeyCode> _tempKeys = new();
 
@@ -59,6 +62,18 @@ public partial class MainProgram : Node2D
         _globalHook.KeyReleased += GlobalHookOnKeyReleased;
 
         InitButtons();
+
+        var savedTheme = Utils.DataUtils.LoadTheme();
+        switch (savedTheme) {
+            case "Penguin":
+                ApplyPenguinTheme();
+                break;
+            default:
+                ApplyDuckTheme();
+                break;
+
+            
+        }
 
         await _globalHook.RunAsync();
     }
@@ -193,11 +208,11 @@ public partial class MainProgram : Node2D
     }
 
     private void InitButtons() {
-        var duckButton = GetNode<Button>("UI/MainScreen/ThemeIcons/Duck");
-        duckButton.Pressed += ApplyDuckTheme;
+        _duckButton = GetNode<Button>("UI/MainScreen/ThemeIcons/Duck");
+        _duckButton.Pressed += ApplyDuckTheme;
         
-        var penguinButton = GetNode<Button>("UI/MainScreen/ThemeIcons/Penguin");
-        penguinButton.Pressed += ApplyPenguinTheme;
+        _penguinButton = GetNode<Button>("UI/MainScreen/ThemeIcons/Penguin");
+        _penguinButton.Pressed += ApplyPenguinTheme;
     }
 
     private void ApplyDuckTheme() {
@@ -205,6 +220,14 @@ public partial class MainProgram : Node2D
         _logoButton.Icon = GD.Load<Texture2D>($"res://Assets/Logos/DuckLogo.png");
         _mainScreen.SelfModulate = new Color("#FFFFFF");
         _topBar.SelfModulate = new Color("#FF7118");
+
+        _penguinButton.SelfModulate = new Color("#FFFFFF", 0.5f);
+        _penguinButton.Icon = GD.Load<Texture2D>("res://Assets/Icons/Pengu60xNoOutline.png");
+        
+        _duckButton.SelfModulate = new Color("#FFFFFF", 1f);
+        _duckButton.Icon = GD.Load<Texture2D>("res://Assets/Icons/Duckeys60xOutline.png");
+        
+        Utils.DataUtils.SaveTheme("Duck");
     }
 
     private void ApplyPenguinTheme() {
@@ -212,5 +235,13 @@ public partial class MainProgram : Node2D
         _logoButton.Icon = GD.Load<Texture2D>($"res://Assets/Logos/PenguinLogo.png");
         _mainScreen.SelfModulate = new Color("#94D7F5");
         _topBar.SelfModulate = new Color("#2477BD");
+        
+        _penguinButton.SelfModulate = new Color("#FFFFFF", 1f);
+        _penguinButton.Icon = GD.Load<Texture2D>("res://Assets/Icons/Pengu60xOutline.png");
+        
+        _duckButton.SelfModulate = new Color("#FFFFFF", 0.5f);
+        _duckButton.Icon = GD.Load<Texture2D>("res://Assets/Icons/Duckeys60xNoOutline.png");
+        
+        Utils.DataUtils.SaveTheme("Penguin");
     } 
 }
