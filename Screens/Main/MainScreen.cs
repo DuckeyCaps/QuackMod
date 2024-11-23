@@ -1,8 +1,6 @@
 using Godot;
 
-
 namespace SoundBinder;
-
 
 public partial class MainScreen : Panel
 {
@@ -30,9 +28,7 @@ public partial class MainScreen : Panel
 
     private bool _followMouse;
     private Vector2 _dragStartPos;
-
-
-    // Called when the node enters the scene tree for the first time.
+    
     public override void _Ready()
     {
         _mainKeys = GetNode<Label>("MainContent/Keys");
@@ -53,11 +49,6 @@ public partial class MainScreen : Panel
         _themeIcons = GetNode<HBoxContainer>("ThemeIcons");
     }
 
-    //public void ApplyTheme(ThemeInfo newTheme)
-    //{
-
-    //}
-
     public void SetProgram(MainProgram program)
     {
         _program = program;
@@ -70,12 +61,10 @@ public partial class MainScreen : Panel
         OnHelpPressed();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-        if (_followMouse)
-            DisplayServer.WindowSetPosition(DisplayServer.WindowGetPosition() +
-                                            (Vector2I)(GetGlobalMousePosition() - _dragStartPos));
+    public override void _Process(double delta) {
+        if (!_followMouse) return;
+        
+        DisplayServer.WindowSetPosition(DisplayServer.WindowGetPosition() + (Vector2I)(GetGlobalMousePosition() - _dragStartPos));
     }
 
     public void ShowMainScreen()
@@ -128,7 +117,7 @@ public partial class MainScreen : Panel
     }
 
     public void SetEditMode(bool isAdding) {
-        _editMode.Text = isAdding ? "Currently Adding" : "Currently Removing";
+        _editMode.Text = isAdding ? "Keys Adding" : "Keys Removing";
     }
 
     private void OnTopBarGuiInput(InputEvent e)
@@ -142,7 +131,6 @@ public partial class MainScreen : Panel
         _followMouse = !_followMouse;
         if (_followMouse)
             _dragStartPos = GetLocalMousePosition();
-
     }
 
     private void OnQuackPressed()

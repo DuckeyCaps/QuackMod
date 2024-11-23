@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cmoxcal3osyht"
-path="res://.godot/imported/quack.wav-885e85fb724a5862bd137669e25f07ae.sample"
+uid="uid://bkl2dsta625ht"
+path="res://.godot/imported/Penguin.wav-771f8eb991427a3570456da7a3437d17.sample"
 
 [deps]
 
-source_file="res://Assets/quack.wav"
-dest_files=["res://.godot/imported/quack.wav-885e85fb724a5862bd137669e25f07ae.sample"]
+source_file="res://Assets/Sounds/Penguin.wav"
+dest_files=["res://.godot/imported/Penguin.wav-771f8eb991427a3570456da7a3437d17.sample"]
 
 [params]
 

@@ -1,20 +1,21 @@
-[gd_scene load_steps=34 format=3 uid="uid://w0xxi8t0f5au"]
+[gd_scene load_steps=35 format=3 uid="uid://w0xxi8t0f5au"]
 
 [ext_resource type="Script" path="res://Screens/Main/MainScreen.cs" id="1_1nsqh"]
 [ext_resource type="Theme" uid="uid://cc6fbnjy8r0if" path="res://theme.tres" id="1_xt2pu"]
 [ext_resource type="Texture2D" uid="uid://3umf2os6owyw" path="res://Assets/HelpIcon.png" id="3_0vry3"]
 [ext_resource type="Texture2D" uid="uid://db3i6r080uv7p" path="res://Assets/MinimizeIcon.png" id="3_rpqog"]
+[ext_resource type="FontFile" uid="uid://d35of2wwvnr31" path="res://Assets/Fonts/Poppins-SemiBold.ttf" id="3_u3bvo"]
 [ext_resource type="Texture2D" uid="uid://dfys3bol1tevg" path="res://Assets/CloseIcon.png" id="4_tn6rd"]
 [ext_resource type="StyleBox" uid="uid://bw0smsiobfsta" path="res://Screens/Main/GreenButton.tres" id="5_2o87u"]
-[ext_resource type="Texture2D" uid="uid://bcj4u44h5bm0t" path="res://Assets/Pengu Update Icons 2024/DuckeysLogoCropped.png" id="6_alts4"]
 [ext_resource type="StyleBox" uid="uid://dkt485vyo6nn6" path="res://Screens/Main/OrangeButton.tres" id="6_y1mkf"]
 [ext_resource type="StyleBox" uid="uid://bc8bmsen7eg1j" path="res://Screens/Main/RedButton.tres" id="7_hwexp"]
-[ext_resource type="FontFile" uid="uid://bish337w7eshu" path="res://Assets/Poppins.ttf" id="10_u2664"]
+[ext_resource type="Texture2D" uid="uid://bldmo8iko3iwm" path="res://Assets/Logos/DuckLogo.png" id="7_v5qx6"]
+[ext_resource type="FontFile" uid="uid://sviv7cy1xydp" path="res://Assets/Fonts/Poppins.ttf" id="10_u2664"]
 [ext_resource type="Texture2D" uid="uid://1ukm0jprjqww" path="res://Assets/Icons/Duckeys60xOutline.png" id="11_vbgd3"]
 [ext_resource type="Texture2D" uid="uid://diso1qthev8yr" path="res://Assets/Icons/Pengu60xOutline.png" id="12_on4k6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mqab"]
-bg_color = Color(0, 0, 0, 0.603922)
+bg_color = Color(1, 1, 1, 1)
 border_color = Color(0.8, 0.8, 0.8, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yv45m"]
@@ -48,6 +49,7 @@ content_margin_left = 5.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_md5b6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6s1ut"]
+font = ExtResource("10_u2664")
 font_size = 30
 font_color = Color(0, 0, 0, 1)
 
@@ -105,6 +107,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7mqab")
 [node name="Title" type="Label" parent="TopBar"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_u3bvo")
 theme_override_font_sizes/font_size = 24
 text = "QuackMod"
 horizontal_alignment = 1
@@ -166,7 +169,7 @@ text = "
 
 
 "
-icon = ExtResource("6_alts4")
+icon = ExtResource("7_v5qx6")
 flat = true
 icon_alignment = 1
 
@@ -210,6 +213,7 @@ text = "Clear Keys"
 [node name="Current Keys" type="Label" parent="MainContent"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("10_u2664")
 text = "Current Keys: "
 horizontal_alignment = 1
 
@@ -389,7 +393,7 @@ layout_mode = 2
 icon = ExtResource("11_vbgd3")
 flat = true
 
-[node name="Pengu" type="Button" parent="ThemeIcons"]
+[node name="Penguin" type="Button" parent="ThemeIcons"]
 layout_mode = 2
 icon = ExtResource("12_on4k6")
 flat = true

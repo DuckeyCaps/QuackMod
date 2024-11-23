@@ -4,43 +4,16 @@ using SharpHook;
 using SharpHook.Native;
 
 namespace SoundBinder;
-public struct ThemeInfo
-{
-    public string GreenButtonHex { get; }
-    public string OrangeButtonHex { get; }
-    public string RedButtonHex { get; }
-
-    public string BackgroundHex { get; }
-    public string TopBarHex { get; }
-
-    public string IconName { get; }
-    public string SoundName { get; }
-
-    public ThemeInfo(string green, string orange, string red, string back, string top, string icon, string sound)
-    {
-        GreenButtonHex = green;
-        OrangeButtonHex = orange;
-        RedButtonHex = red;
-
-        BackgroundHex = back;
-        TopBarHex = top;
-
-        IconName = icon;
-        SoundName = sound;
-    }
-}
 
 public partial class MainProgram : Node2D
 {
-    public Dictionary<string, ThemeInfo> Themes;
-
     private AudioStreamPlayer _player;
-
-    private CanvasLayer _uiLayer;
+    private Button _logoButton; 
 
     private PackedScene _mainScreenScene;
 
     private MainScreen _mainScreen;
+    private PanelContainer _topBar; 
 
     private Label _mainKeyLabel;
     private Label _editKeyLabel;
@@ -60,22 +33,23 @@ public partial class MainProgram : Node2D
     private EditState _editState;
 
     private bool _freshStart = true;
-    private HashSet<KeyCode> _hasQuacked = new();
+    private readonly HashSet<KeyCode> _hasQuacked = new();
 
     // Called when the node enters the scene tree for the first time.
     public override async void _Ready()
     {
         _player = GetNode<AudioStreamPlayer>("SFXPlayer");
-        _uiLayer = GetNode<CanvasLayer>("UI");
 
         _activeKeys = Utils.DataUtils.LoadData();
 
-        _mainScreenScene = GD.Load<PackedScene>("res://Screens/Main/main_screen.tscn");
-        _mainScreen = _mainScreenScene.Instantiate<MainScreen>();
+        _mainScreen = GetNode<MainScreen>("UI/MainScreen");
+        _topBar = GetNode<PanelContainer>("UI/MainScreen/TopBar");
+        _logoButton = GetNode<Button>("UI/MainScreen/SoundButton");
 
+        // TODO: Figure out how to load and connect to theme buttons from here
+        // ... or just... stick MainScreen inside of the UI in the editor and not need to instantiate it...?
+        
         _mainScreen.SetProgram(this);
-
-        _uiLayer.AddChild(_mainScreen);
         
         _editState = EditState.NotEditing;
 
@@ -83,6 +57,8 @@ public partial class MainProgram : Node2D
 
         _globalHook.KeyPressed += GlobalHookOnKeyPressed;
         _globalHook.KeyReleased += GlobalHookOnKeyReleased;
+
+        InitButtons();
 
         await _globalHook.RunAsync();
     }
@@ -95,16 +71,13 @@ public partial class MainProgram : Node2D
         if (_editState != EditState.NotEditing)
         {
             HandleEditKeyPress(eventData);
+            return;
         }
-
-        else
-        {
-            if (_activeKeys.Contains(eventData.KeyCode) && !_hasQuacked.Contains(eventData.KeyCode))
-            {
-                Quack();
-                _hasQuacked.Add(eventData.KeyCode);
-            }
-        }
+        
+        if (!_activeKeys.Contains(eventData.KeyCode) || _hasQuacked.Contains(eventData.KeyCode)) return;
+        
+        Quack();
+        _hasQuacked.Add(eventData.KeyCode);
     }
 
     private void GlobalHookOnKeyReleased(object sender, KeyboardHookEventArgs e)
@@ -201,8 +174,7 @@ public partial class MainProgram : Node2D
         _activeKeys.Clear();
         _mainScreen.SetMainKeyLabel("<None>");
     }
-
-
+    
     private void SetMainKeyLabel()
     {
         if (_activeKeys.Count == 0)
@@ -219,4 +191,26 @@ public partial class MainProgram : Node2D
         var outString = string.Join(", ", tempKeys);
         _mainScreen.SetMainKeyLabel(outString);
     }
+
+    private void InitButtons() {
+        var duckButton = GetNode<Button>("UI/MainScreen/ThemeIcons/Duck");
+        duckButton.Pressed += ApplyDuckTheme;
+        
+        var penguinButton = GetNode<Button>("UI/MainScreen/ThemeIcons/Penguin");
+        penguinButton.Pressed += ApplyPenguinTheme;
+    }
+
+    private void ApplyDuckTheme() {
+        _player.Stream = GD.Load<AudioStreamWav>("res://Assets/Sounds/Quack.wav");
+        _logoButton.Icon = GD.Load<Texture2D>($"res://Assets/Logos/DuckLogo.png");
+        _mainScreen.SelfModulate = new Color("#FFFFFF");
+        _topBar.SelfModulate = new Color("#FF7118");
+    }
+
+    private void ApplyPenguinTheme() {
+        _player.Stream = GD.Load<AudioStreamWav>("res://Assets/Sounds/Penguin.wav");
+        _logoButton.Icon = GD.Load<Texture2D>($"res://Assets/Logos/PenguinLogo.png");
+        _mainScreen.SelfModulate = new Color("#94D7F5");
+        _topBar.SelfModulate = new Color("#2477BD");
+    } 
 }

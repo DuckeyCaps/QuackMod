@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://gbt3qtfxkbdp"]
+[gd_scene load_steps=4 format=3 uid="uid://gbt3qtfxkbdp"]
 
 [ext_resource type="Script" path="res://MainProgram.cs" id="1_nssww"]
+[ext_resource type="PackedScene" uid="uid://w0xxi8t0f5au" path="res://Screens/Main/main_screen.tscn" id="2_l6f77"]
 [ext_resource type="AudioStream" uid="uid://cmoxcal3osyht" path="res://Assets/quack.wav" id="2_tfwjg"]
 
 [node name="MainProgram" type="Node2D"]
 script = ExtResource("1_nssww")
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MainScreen" parent="UI" instance=ExtResource("2_l6f77")]
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_tfwjg")
