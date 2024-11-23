@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://MainProgram.cs" id="1_nssww"]
 [ext_resource type="PackedScene" uid="uid://w0xxi8t0f5au" path="res://Screens/Main/main_screen.tscn" id="2_l6f77"]
-[ext_resource type="AudioStream" uid="uid://cmoxcal3osyht" path="res://Assets/quack.wav" id="2_tfwjg"]
+[ext_resource type="AudioStream" uid="uid://ceflh77uqpdoc" path="res://Assets/Sounds/Duck.wav" id="2_tfwjg"]
 
 [node name="MainProgram" type="Node2D"]
 script = ExtResource("1_nssww")

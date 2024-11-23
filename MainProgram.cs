@@ -201,7 +201,7 @@ public partial class MainProgram : Node2D
     }
 
     private void ApplyDuckTheme() {
-        _player.Stream = GD.Load<AudioStreamWav>("res://Assets/Sounds/Quack.wav");
+        _player.Stream = GD.Load<AudioStreamWav>("res://Assets/Sounds/Duck.wav");
         _logoButton.Icon = GD.Load<Texture2D>($"res://Assets/Logos/DuckLogo.png");
         _mainScreen.SelfModulate = new Color("#FFFFFF");
         _topBar.SelfModulate = new Color("#FF7118");

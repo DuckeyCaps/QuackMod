@@ -1,6 +1,5 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cc6fbnjy8r0if"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cc6fbnjy8r0if"]
 
-[ext_resource type="Texture2D" uid="uid://bcj4u44h5bm0t" path="res://Assets/Pengu Update Icons 2024/DuckeysLogoCropped.png" id="2_ncyhq"]
 [ext_resource type="FontFile" uid="uid://d35of2wwvnr31" path="res://Assets/Fonts/Poppins-SemiBold.ttf" id="3_qw67r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkkdv"]
@@ -26,7 +25,7 @@ default_font_size = 30
 /colors/orange = Color(0.960784, 0.52549, 0.32549, 1)
 /colors/red = Color(0.941176, 0.317647, 0.32549, 1)
 /colors/yellow = Color(0.992157, 0.941176, 0.643137, 1)
-/icons/duck = ExtResource("2_ncyhq")
+/icons/duck = null
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 40
 Button/styles/normal = SubResource("StyleBoxFlat_xkkdv")
