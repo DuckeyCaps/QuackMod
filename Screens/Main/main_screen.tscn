@@ -124,9 +124,9 @@ alignment = 2
 
 [node name="Min" type="Button" parent="TopBar/Buttons"]
 layout_mode = 2
-theme_override_colors/icon_pressed_color = Color(0.960784, 0.52549, 0.32549, 1)
-theme_override_colors/icon_hover_color = Color(0.960784, 0.52549, 0.32549, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0.960784, 0.52549, 0.32549, 1)
+theme_override_colors/icon_pressed_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_hover_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.745098, 0.745098, 0.745098, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yv45m")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mcplq")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_bf2tc")
@@ -136,9 +136,9 @@ icon = ExtResource("3_rpqog")
 
 [node name="Close" type="Button" parent="TopBar/Buttons"]
 layout_mode = 2
-theme_override_colors/icon_pressed_color = Color(0.941176, 0.317647, 0.32549, 1)
-theme_override_colors/icon_hover_color = Color(0.941176, 0.317647, 0.32549, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0.941176, 0.317647, 0.32549, 1)
+theme_override_colors/icon_hover_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_focus_color = Color(0.745098, 0.745098, 0.745098, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_gs2oh")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vjtc0")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_jrqn0")
@@ -149,9 +149,9 @@ icon = ExtResource("4_tn6rd")
 [node name="Help" type="Button" parent="TopBar"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_colors/icon_pressed_color = Color(0.537255, 0.780392, 0.396078, 1)
-theme_override_colors/icon_hover_color = Color(0.537255, 0.780392, 0.396078, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0.537255, 0.780392, 0.396078, 1)
+theme_override_colors/icon_hover_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_colors/icon_focus_color = Color(0.745098, 0.745098, 0.745098, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_d8s41")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_n5obg")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_j67f0")
@@ -244,10 +244,11 @@ alignment = 1
 [node name="HelpContent" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 2
-offset_top = 43.0
-offset_right = 1151.0
+offset_left = 35.0
+offset_top = 42.0
+offset_right = 1117.0
 offset_bottom = 648.0
-theme_override_constants/separation = 26
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="LabelTitle" type="Label" parent="HelpContent"]
@@ -274,7 +275,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vevxi")
 text = "- \"Clear Keys\" will clear the current key list.
-- \"Add/Remove Keys\" will enter the Edit screen, where keys pressed will be added to a temp list. 
+- \"Add/Remove Keys\" will enter Edit mode. Keys pressed will be added to a temporary list. 
 - \"Save Edits\" will cause the keys in the list to be added or removed from the current key list. 
 - \"Discard Edits\" will make no changes and will return you to the Main screen."
 autowrap_mode = 3
@@ -323,6 +324,7 @@ horizontal_alignment = 1
 
 [node name="Buttons" type="HBoxContainer" parent="EditContent"]
 layout_mode = 2
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="Save" type="Button" parent="EditContent/Buttons"]
