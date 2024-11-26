@@ -228,6 +228,8 @@ public partial class MainProgram : Node2D
         _duckButton.Icon = GD.Load<Texture2D>("res://Assets/Icons/Duckeys60xOutline.png");
         
         Utils.DataUtils.SaveTheme("Duck");
+        
+        Quack();
     }
 
     private void ApplyPenguinTheme() {
@@ -243,5 +245,7 @@ public partial class MainProgram : Node2D
         _duckButton.Icon = GD.Load<Texture2D>("res://Assets/Icons/Duckeys60xNoOutline.png");
         
         Utils.DataUtils.SaveTheme("Penguin");
+        
+        Quack();
     } 
 }
